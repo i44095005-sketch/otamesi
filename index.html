@@ -3,11 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 検索エンジンにヒットさせない設定（お試し・限定公開用） -->
   <meta name="robots" content="noindex, nofollow">
   <title>解析学Ⅰ - 講義一覧</title>
   <style>
-    /* 全体基本設定 */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -21,17 +19,16 @@
       padding: 30px 15px;
     }
     .container {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto;
     }
     
-    /* ヘッダー */
     header {
       margin-bottom: 32px;
       text-align: center;
     }
     header h1 {
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: #1a1a1a;
       margin-bottom: 8px;
     }
@@ -40,7 +37,7 @@
       color: #666;
     }
 
-    /* 講義一覧グリッド（スマホは1列、PC・タブレットは複数列） */
+    /* 講義一覧グリッド */
     .lesson-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -53,48 +50,63 @@
       align-items: center;
       justify-content: space-between;
       background: #ffffff;
-      padding: 18px 24px;
+      padding: 18px 20px;
       border-radius: 10px;
       border: 1px solid #e2e8f0;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
       text-decoration: none;
       color: #2d3748;
-      font-weight: bold;
       transition: all 0.2s ease;
+      min-height: 85px; /* 高さの崩れを防止 */
     }
     .lesson-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
       border-color: #007bff;
-      color: #007bff;
     }
-    .lesson-number {
-      font-size: 1.1rem;
+
+    /* テキスト部分（縦並び配置） */
+    .lesson-info {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
+      gap: 4px;
     }
+    
+    /* 講数（メインタイトル） */
+    .lesson-number {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: #1a202c;
+    }
+
+    /* サブタイトル（講義内容） */
+    .lesson-subtitle {
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: normal;
+    }
+
+    /* 右矢印アイコン */
     .arrow-icon {
       font-size: 1.2rem;
       color: #a0aec0;
+      margin-left: 10px;
+      flex-shrink: 0;
     }
     .lesson-card:hover .arrow-icon {
       color: #007bff;
     }
 
-    /* 💻 PC・タブレット表示時のレイアウト（2列〜3列表示） */
+    /* 💻 PC・タブレット表示時のレイアウト */
     @media (min-width: 600px) {
       .lesson-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2列並び */
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
       }
     }
     @media (min-width: 900px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
       .lesson-grid {
-        grid-template-columns: repeat(3, 1fr); /* 3列並び */
+        grid-template-columns: repeat(3, 1fr);
       }
     }
   </style>
@@ -103,74 +115,91 @@
 
   <div class="container">
     <header>
-      <h1>📚 解析学Ⅰ　講義一覧</h1>
+      <h1>📚 解析学Ⅰ 講義一覧</h1>
       <p>受講したい講義を選択してください。</p>
     </header>
 
     <main class="lesson-grid">
-      <!-- 第1講 ～ 第15講 リンク一覧 -->
-      <a href="lesson01.html" class="lesson-card">
-        <span class="lesson-number">📖 第1講　導入、極限、挟み撃ちの原理</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson02.html" class="lesson-card">
-        <span class="lesson-number">📖 第2講　連続関数、逆関数、逆三角関数</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson03.html" class="lesson-card">
-        <span class="lesson-number">📖 第3講　微分、対数微分法</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson04.html" class="lesson-card">
-        <span class="lesson-number">📖 第4講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson05.html" class="lesson-card">
-        <span class="lesson-number">📖 第5講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson06.html" class="lesson-card">
-        <span class="lesson-number">📖 第6講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson07.html" class="lesson-card">
-        <span class="lesson-number">📖 第7講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson08.html" class="lesson-card">
-        <span class="lesson-number">📖 第8講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson09.html" class="lesson-card">
-        <span class="lesson-number">📖 第9講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson10.html" class="lesson-card">
-        <span class="lesson-number">📖 第10講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson11.html" class="lesson-card">
-        <span class="lesson-number">📖 第11講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson12.html" class="lesson-card">
-        <span class="lesson-number">📖 第12講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson13.html" class="lesson-card">
-        <span class="lesson-number">📖 第13講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson14.html" class="lesson-card">
-        <span class="lesson-number">📖 第14講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-      <a href="lesson15.html" class="lesson-card">
-        <span class="lesson-number">📖 第15講</span>
-        <span class="arrow-icon">→</span>
-      </a>
-    </main>
-  </div>
 
-</body>
-</html>
+      <!-- 第1講 -->
+      <a href="lesson1.html" class="lesson-card">
+        <div class="lesson-info">
+          <span class="lesson-number">📖 第1講</span>
+          <span class="lesson-subtitle">導入、極限、挟み撃ちの原理</span>
+        </div>
+        <span class="arrow-icon">→</span>
+      </a>
+
+      <!-- 第2講 -->
+      <a href="lesson2.html" class="lesson-card">
+        <div class="lesson-info">
+          <span class="lesson-number">📖 第2講</span>
+          <span class="lesson-subtitle">連続関数、逆関数、逆三角関数</span>
+        </div>
+        <span class="arrow-icon">→</span>
+      </a>
+
+      <!-- 第3講 -->
+      <a href="lesson3.html" class="lesson-card">
+        <div class="lesson-info">
+          <span class="lesson-number">📖 第3講</span>
+          <span class="lesson-subtitle">微分、対数微分法</span>
+        </div>
+        <span class="arrow-icon">→</span>
+      </a>
+
+      <!-- 第4講 -->
+      <a href="lesson4.html" class="lesson-card">
+        <div class="lesson-info">
+          <span class="lesson-number">📖 第4講</span>
+          <span class="lesson-subtitle">高次導関数、ライプニッツの公式</span>
+        </div>
+        <span class="arrow-icon">→</span>
+      </a>
+
+      <!-- 第5講 -->
+      <a href="lesson5.html" class="lesson-card">
+        <div class="lesson-info">
+          <span class="lesson-number">📖 第5講</span>
+          <span class="lesson-subtitle">テイラーの定理、テイラー展開</span>
+        </div>
+        <span class="arrow-icon">→</span>
+      </a>
+
+      <!-- 第6講 -->
+      <a href="lesson6.html" class="lesson-card">
+        <div class="lesson-info">
+          <span class="lesson-number">📖 第6講</span>
+          <span class="lesson-subtitle">マクローリン展開、近似計算</span>
+        </div>
+        <span class="arrow-icon">→</span>
+      </a>
+
+      <!-- 第7講 -->
+      <a href="lesson7.html" class="lesson-card">
+        <div class="lesson-info">
+          <span class="lesson-number">📖 第7講</span>
+          <span class="lesson-subtitle">不定形、ロピタルの定理</span>
+        </div>
+        <span class="arrow-icon">→</span>
+      </a>
+
+      <!-- 第8講 -->
+      <a href="lesson8.html" class="lesson-card">
+        <div class="lesson-info">
+          <span class="lesson-number">📖 第8講</span>
+          <span class="lesson-subtitle">不定積分、置換積分法</span>
+        </div>
+        <span class="arrow-icon">→</span>
+      </a>
+
+      <!-- 第9講 -->
+      <a href="lesson9.html" class="lesson-card">
+        <div class="lesson-info">
+          <span class="lesson-number">📖 第9講</span>
+          <span class="lesson-subtitle">部分積分法、有理関数の積分</span>
+        </div>
+        <span class="arrow-icon">→</span>
+      </a>
+
+      <!--
