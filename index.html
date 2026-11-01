@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 検索エンジンにヒットさせない設定（お試し・限定公開用） -->
+  <meta name="robots" content="noindex, nofollow">
   <title>オンライン講座 - 授業ページ</title>
   <style>
     /* 全体基本設定 */
@@ -19,7 +21,7 @@
       padding: 20px 15px;
     }
     .container {
-      max-width: 900px;
+      max-width: 1400px; /* 横長画面に対応するため幅を拡大 */
       margin: 0 auto;
     }
     
@@ -38,7 +40,7 @@
       color: #666;
     }
 
-    /* メインコンテンツ配置 */
+    /* メインコンテンツ配置（基本：スマホ用の縦並び） */
     .content-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -52,6 +54,8 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       padding: 20px;
       border: 1px solid #eaeaea;
+      display: flex;
+      flex-direction: column;
     }
     .card-title {
       font-size: 1.2rem;
@@ -64,7 +68,7 @@
       padding-bottom: 8px;
     }
 
-    /* 1. YouTubeプレイヤー領域（レスポンシブ・アスペクト比維持） */
+    /* 1. YouTubeプレイヤー領域（16:9比率） */
     .video-wrapper {
       position: relative;
       width: 100%;
@@ -83,13 +87,14 @@
       border: 0;
     }
 
-    /* 2. PDFビューア・ダウンロード枠 */
+    /* 2. PDFビューア領域 */
     .pdf-wrapper {
       width: 100%;
       height: 500px;
       border: 1px solid #ddd;
       border-radius: 8px;
       overflow: hidden;
+      flex-grow: 1; /* 高さ自動フィット */
     }
     .pdf-wrapper iframe {
       width: 100%;
@@ -115,16 +120,22 @@
       background-color: #0056b3;
     }
 
-    /* PC・タブレット用レイアウト調整 */
-    @media (min-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
+    /* 💻 PC・タブレット用レイアウト（画面幅992px以上で左右分割） */
+    @media (min-width: 992px) {
       body {
-        padding: 40px 20px;
+        padding: 30px;
+      }
+      header h1 {
+        font-size: 2.2rem;
+      }
+      .content-grid {
+        /* 左側に動画（1）、右側にPDF（1）の50%:50%で左右配置 */
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
       }
       .pdf-wrapper {
-        height: 600px;
+        /* PC画面でPDFをしっかり読めるよう高さを確保 */
+        height: 650px;
       }
     }
   </style>
@@ -134,18 +145,15 @@
   <div class="container">
     <header>
       <h1>第1回 授業講義</h1>
-      <p>動画を視聴しながら、下のテキスト・レジュメを確認してください。</p>
+      <p>動画を視聴しながら、右側のテキスト・レジュメを確認してください。</p>
     </header>
 
     <main class="content-grid">
-      <!-- 動画セクション -->
+      <!-- 左側：動画セクション -->
       <section class="card">
         <h2 class="card-title">🎥 講義動画</h2>
         <div class="video-wrapper">
-          <!-- 
-            src内の「YOUR_VIDEO_ID」をご自身のYouTube動画IDに置き換えてください。
-            playsinline=1 によりスマホのYouTubeアプリ起動を防ぎます。
-          -->
+          <!-- 「YOUR_VIDEO_ID」を実際のYouTube動画IDに変更してください -->
           <iframe 
             src="https://www.youtube.com/embed/YOUR_VIDEO_ID?playsinline=1&rel=0&modestbranding=1" 
             title="講義動画" 
@@ -155,7 +163,7 @@
         </div>
       </section>
 
-      <!-- PDF資料セクション -->
+      <!-- 右側：PDF資料セクション -->
       <section class="card">
         <h2 class="card-title">📄 授業用資料（PDF）</h2>
         <div class="pdf-wrapper">
