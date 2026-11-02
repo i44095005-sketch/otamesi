@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>オンライン講座 - 科目一覧</title>
+  <title>大学院受験予備校 - 開講科目一覧</title>
   <style>
     * {
       box-sizing: border-box;
@@ -20,7 +20,7 @@
       padding-bottom: 40px;
     }
 
-    /* 🌐 グローバルナビ（上部固定ヘッダー） */
+    /* 🌐 グローバルナビ（トップページ用：中央タイトルのみ） */
     .global-nav {
       position: fixed;
       top: 0;
@@ -31,87 +31,18 @@
       color: #ffffff;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       padding: 0 15px;
       z-index: 1000;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
-    .nav-title {
+    .nav-portal-title {
       font-weight: bold;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       color: #ffffff;
       text-decoration: none;
       white-space: nowrap;
     }
-
-    /* メニュー切替ボタン */
-    .menu-toggle {
-      background: #007bff;
-      color: #fff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: bold;
-      white-space: nowrap;
-    }
-    .btn-subject-toggle {
-      background: #4a5568;
-    }
-    .btn-subject-toggle:hover {
-      background: #718096;
-    }
-
-    /* 共通サイドバー設定 */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      width: 280px;
-      height: 100%;
-      background: #ffffff;
-      box-shadow: 0 0 12px rgba(0,0,0,0.15);
-      z-index: 1001;
-      transition: all 0.3s ease;
-      overflow-y: auto;
-      padding: 20px;
-    }
-    .sidebar-left { left: -280px; }
-    .sidebar-left.open { left: 0; }
-    .sidebar-right { right: -280px; }
-    .sidebar-right.open { right: 0; }
-
-    .sidebar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #edf2f7;
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-    }
-    .sidebar-title { font-size: 1.1rem; font-weight: bold; color: #2d3748; }
-    .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #718096; }
-    .sidebar-list { list-style: none; }
-    .sidebar-list li { margin-bottom: 8px; }
-    .sidebar-list a {
-      display: block;
-      padding: 10px 12px;
-      border-radius: 6px;
-      color: #4a5568;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: all 0.2s;
-    }
-    .sidebar-list a:hover { background: #edf2f7; color: #007bff; }
-    .sidebar-list a.active { background: #ebf8ff; color: #007bff; font-weight: bold; }
-
-    /* 背景オーバーレイ */
-    .overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4); z-index: 1000; display: none;
-    }
-    .overlay.open { display: block; }
 
     /* メインコンテナ */
     .container {
@@ -221,29 +152,10 @@
 </head>
 <body>
 
-  <!-- 🌐 固定上部ナビゲーション -->
+  <!-- 🌐 固定上部ナビゲーション（トップページ用：両端ボタンなし） -->
   <nav class="global-nav">
-    <button class="menu-toggle btn-subject-toggle" onclick="toggleSubjectSidebar()">📚 他科目へ</button>
-    <a href="index.html" class="nav-title">🎓 オンライン講義</a>
-    <button class="menu-toggle" onclick="toggleLessonSidebar()">☰ 講義一覧</button>
+    <a href="index.html" class="nav-portal-title">🏠 大学院受験予備校</a>
   </nav>
-
-  <div class="overlay" id="overlay" onclick="closeAllSidebars()"></div>
-
-  <!-- 👈 左側スライド：科目一覧サイドバー -->
-  <aside class="sidebar sidebar-left" id="subjectSidebar">
-    <div class="sidebar-header">
-      <span class="sidebar-title">科目選択</span>
-      <button class="close-btn" onclick="closeAllSidebars()">×</button>
-    </div>
-    <ul class="sidebar-list">
-      <li><a href="kaiseki1/index.html">📘 解析学Ⅰ</a></li>
-      <li><a href="#">📗 解析学Ⅱ（準備中）</a></li>
-      <li><a href="#">📙 線形代数（準備中）</a></li>
-      <li><a href="#">📕 微分方程式（準備中）</a></li>
-      <li><a href="#">📓 確率統計（準備中）</a></li>
-    </ul>
-  </aside>
 
   <div class="container">
     <header>
@@ -292,24 +204,6 @@
 
     </main>
   </div>
-
-  <script>
-    function toggleSubjectSidebar() {
-      closeAllSidebars();
-      document.getElementById('subjectSidebar').classList.add('open');
-      document.getElementById('overlay').classList.add('open');
-    }
-    function toggleLessonSidebar() {
-      closeAllSidebars();
-      document.getElementById('lessonSidebar').classList.add('open');
-      document.getElementById('overlay').classList.add('open');
-    }
-    function closeAllSidebars() {
-      document.getElementById('subjectSidebar').classList.remove('open');
-      document.getElementById('lessonSidebar').classList.remove('open');
-      document.getElementById('overlay').classList.remove('open');
-    }
-  </script>
 
 </body>
 </html>
