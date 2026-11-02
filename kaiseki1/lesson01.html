@@ -65,48 +65,94 @@
     .btn-subject-toggle:hover {
       background: #718096;
     }
-
+    
     /* 共通サイドバー設定 */
     .sidebar {
       position: fixed;
       top: 0;
-      width: 280px;
+      width: 300px;
       height: 100%;
       background: #ffffff;
-      box-shadow: 0 0 12px rgba(0,0,0,0.15);
+      box-shadow: 0 0 16px rgba(0,0,0,0.2);
       z-index: 1001;
       transition: all 0.3s ease;
       overflow-y: auto;
-      padding: 20px;
+      padding: 20px 16px;
     }
-    .sidebar-left { left: -280px; }
+    .sidebar-left { left: -300px; }
     .sidebar-left.open { left: 0; }
-    .sidebar-right { right: -280px; }
+    .sidebar-right { right: -300px; }
     .sidebar-right.open { right: 0; }
 
     .sidebar-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid #edf2f7;
+      border-bottom: 2px solid #e2e8f0;
       padding-bottom: 12px;
       margin-bottom: 16px;
     }
-    .sidebar-title { font-size: 1.1rem; font-weight: bold; color: #2d3748; }
-    .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #718096; }
+    .sidebar-title { font-size: 1.15rem; font-weight: bold; color: #1a202c; }
+    .close-btn { background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #a0aec0; padding: 0 8px; }
+    
     .sidebar-list { list-style: none; }
-    .sidebar-list li { margin-bottom: 8px; }
-    .sidebar-list a {
-      display: block;
-      padding: 8px 12px;
+    .sidebar-list li { margin-bottom: 6px; }
+
+    /* 🏷️ 分野見出しスタイル（見やすく刷新） */
+    .sidebar-category-head {
+      font-size: 0.82rem;
+      font-weight: bold;
+      color: #334155;
+      background-color: #f1f5f9;
+      padding: 6px 10px;
       border-radius: 6px;
-      color: #4a5568;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      display: block;
+      border-left: 3px solid #007bff;
+    }
+
+    /* リンクスタイル */
+    .sidebar-list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: #334155;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      font-weight: 500;
       transition: all 0.2s;
     }
-    .sidebar-list a:hover { background: #edf2f7; color: #007bff; }
-    .sidebar-list a.active { background: #ebf8ff; color: #007bff; font-weight: bold; }
+    .sidebar-list a:hover { background: #f1f5f9; color: #007bff; }
+    .sidebar-list a.active { background: #ebf8ff; color: #007bff; font-weight: bold; border: 1px solid #bae6fd; }
+    
+    /* トップへ戻る系ボタン */
+    .sidebar-btn-home {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      font-weight: bold !important;
+      color: #1e293b !important;
+      margin-bottom: 12px;
+    }
+    .sidebar-btn-home:hover {
+      background: #e2e8f0 !important;
+    }
+
+    /* 準備中表示用 */
+    .sidebar-list a.disabled-link {
+      color: #94a3b8;
+      pointer-events: none;
+    }
+    .badge-prep {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: normal;
+    }
 
     /* 背景オーバーレイ */
     .overlay {
