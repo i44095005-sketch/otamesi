@@ -98,11 +98,11 @@
     .sidebar-list li { margin-bottom: 8px; }
     .sidebar-list a {
       display: block;
-      padding: 10px 12px;
+      padding: 8px 12px;
       border-radius: 6px;
       color: #4a5568;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: all 0.2s;
     }
     .sidebar-list a:hover { background: #edf2f7; color: #007bff; }
@@ -220,19 +220,36 @@
 
   <div class="overlay" id="overlay" onclick="closeAllSidebars()"></div>
 
-  <!-- 👈 左側スライド：科目一覧サイドバー -->
+  <!-- 👈 左側スライド：科目一覧サイドバー（分野別整理版） -->
   <aside class="sidebar sidebar-left" id="subjectSidebar">
     <div class="sidebar-header">
       <span class="sidebar-title">科目選択</span>
       <button class="close-btn" onclick="closeAllSidebars()">×</button>
     </div>
     <ul class="sidebar-list">
-      <li><a href="../index.html">🏠 トップ（科目一覧）</a></li>
+      <li><a href="../index.html" style="background: #edf2f7; font-weight: bold; color: #2b6cb0; margin-bottom: 12px;">🏠 トップ（全科目一覧）</a></li>
+
+      <!-- 📐 数学系科目 -->
+      <li style="font-size: 0.8rem; font-weight: bold; color: #64748b; margin-top: 8px; padding-left: 8px;">📐 数学系科目</li>
       <li><a href="index.html" class="active">📘 解析学Ⅰ</a></li>
-      <li><a href="#">📗 解析学Ⅱ（準備中）</a></li>
-      <li><a href="#">📙 線形代数（準備中）</a></li>
-      <li><a href="#">📕 微分方程式（準備中）</a></li>
-      <li><a href="#">📓 確率統計（準備中）</a></li>
+      <li><a href="#">📗 線形代数（準備中）</a></li>
+      <li><a href="#">📙 微分方程式（準備中）</a></li>
+      <li><a href="#">📓 複素関数論（準備中）</a></li>
+
+      <!-- 💻 情報系科目 -->
+      <li style="font-size: 0.8rem; font-weight: bold; color: #64748b; margin-top: 12px; padding-left: 8px;">💻 情報系科目</li>
+      <li><a href="#">💻 アルゴリズムとデータ構造（準備中）</a></li>
+      <li><a href="#">🖥️ コンピュータ体系（準備中）</a></li>
+
+      <!-- ⚛️ 物理系科目 -->
+      <li style="font-size: 0.8rem; font-weight: bold; color: #64748b; margin-top: 12px; padding-left: 8px;">⚛️ 物理系科目</li>
+      <li><a href="#">⚛️ 力学（準備中）</a></li>
+      <li><a href="#">🧲 電磁気学（準備中）</a></li>
+
+      <!-- ⚡ 電気電子系科目 -->
+      <li style="font-size: 0.8rem; font-weight: bold; color: #64748b; margin-top: 12px; padding-left: 8px;">⚡ 電気電子系科目</li>
+      <li><a href="#">🔌 電気回路（準備中）</a></li>
+      <li><a href="#">📻 電子回路（準備中）</a></li>
     </ul>
   </aside>
 
@@ -243,7 +260,6 @@
       <button class="close-btn" onclick="closeAllSidebars()">×</button>
     </div>
     <ul class="sidebar-list">
-      <!-- ★ 科目トップ（目次）へのボタンを追加 -->
       <li><a href="index.html" style="background: #edf2f7; font-weight: bold; color: #2b6cb0; margin-bottom: 12px;">🏠 解析学Ⅰ トップ</a></li>
 
       <li><a href="lesson01.html" class="active">📖 第1講 導入・極限</a></li>
