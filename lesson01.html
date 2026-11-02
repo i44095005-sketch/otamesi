@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 検索エンジンにヒットさせない設定（お試し・限定公開用） -->
   <meta name="robots" content="noindex, nofollow">
   <title>オンライン講座 - 第1講</title>
   <style>
@@ -18,14 +17,144 @@
       line-height: 1.6;
       color: #333;
       background-color: #f8f9fa;
+      padding-top: 60px; /* 固定ヘッダーの分だけ上に余白を作成 */
+    }
+
+    /* 🌐 グローバルナビ（画面最上部に固定） */
+    .global-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 56px;
+      background-color: #1a202c;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .nav-title {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #ffffff;
+      text-decoration: none;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-nav-home {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      transition: background 0.2s;
+    }
+    .btn-nav-home:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    /* サイドバー開閉ボタン */
+    .menu-toggle {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    /* 📱/💻 スライドサイドバー（メニュー） */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -280px; /* 初期状態は画面外に隠す */
+      width: 280px;
+      height: 100%;
+      background: #ffffff;
+      box-shadow: -2px 0 12px rgba(0,0,0,0.15);
+      z-index: 1001;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .sidebar.open {
+      right: 0; /* ボタン変更で画面内へスライドイン */
+    }
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .sidebar-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #2d3748;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #718096;
+    }
+    .sidebar-list {
+      list-style: none;
+    }
+    .sidebar-list li {
+      margin-bottom: 8px;
+    }
+    .sidebar-list a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 6px;
+      color: #4a5568;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .sidebar-list a:hover {
+      background: #edf2f7;
+      color: #007bff;
+    }
+    .sidebar-list a.active {
+      background: #ebf8ff;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    /* 暗い背景マスク */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 1000;
+      display: none;
+    }
+    .overlay.open {
+      display: block;
+    }
+
+    /* メインコンテンツ配置 */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
       padding: 20px 15px;
     }
-    .container {
-      max-width: 1400px; /* 横長画面に対応するため幅を拡大 */
-      margin: 0 auto;
-    }
     
-    /* ヘッダー */
     header {
       margin-bottom: 24px;
       text-align: center;
@@ -40,14 +169,12 @@
       color: #666;
     }
 
-    /* メインコンテンツ配置（基本：スマホ用の縦並び） */
     .content-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 24px;
     }
 
-    /* セクションカード共通 */
     .card {
       background: #ffffff;
       border-radius: 12px;
@@ -68,7 +195,6 @@
       padding-bottom: 8px;
     }
 
-    /* 動画ブロック全体の余白 */
     .video-block {
       margin-bottom: 24px;
     }
@@ -82,11 +208,10 @@
       margin-bottom: 8px;
     }
 
-    /* YouTubeプレイヤー領域（16:9比率） */
     .video-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 56.25%; /* 16:9比率 */
+      padding-top: 56.25%;
       height: 0;
       overflow: hidden;
       border-radius: 8px;
@@ -101,14 +226,13 @@
       border: 0;
     }
 
-    /* PDFビューア領域 */
     .pdf-wrapper {
       width: 100%;
       height: 500px;
       border: 1px solid #ddd;
       border-radius: 8px;
       overflow: hidden;
-      flex-grow: 1; /* 高さ自動フィット */
+      flex-grow: 1;
     }
     .pdf-wrapper iframe {
       width: 100%;
@@ -134,27 +258,60 @@
       background-color: #0056b3;
     }
 
-    /* 💻 PC・タブレット用レイアウト（画面幅992px以上で左右分割） */
+    /* 💻 PC用レイアウト */
     @media (min-width: 992px) {
-      body {
+      .container {
         padding: 30px;
       }
       header h1 {
         font-size: 2.2rem;
       }
       .content-grid {
-        /* 左側に動画（1）、右側にPDF（1）の50%:50%で左右配置 */
         grid-template-columns: 1fr 1fr;
         align-items: start;
       }
       .pdf-wrapper {
-        /* 動画が2つ並ぶため、PC画面でのPDF表示の高さを拡張（900px） */
         height: 900px;
       }
     }
   </style>
 </head>
 <body>
+
+  <!-- 🌐 固定上部ナビゲーション -->
+  <nav class="global-nav">
+    <a href="index.html" class="nav-title">📚 解析学Ⅰ</a>
+    <div class="nav-actions">
+      <a href="index.html" class="btn-nav-home">🏠 講義一覧</a>
+      <button class="menu-toggle" onclick="toggleSidebar()">☰ 講義選択</button>
+    </div>
+  </nav>
+
+  <!-- 📱/💻 スライド表示される講義一覧サイドバー -->
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-title">講義メニュー</span>
+      <button class="close-btn" onclick="toggleSidebar()">×</button>
+    </div>
+    <ul class="sidebar-list">
+      <li><a href="lesson1.html" class="active">📖 第1讲 導入・極限</a></li>
+      <li><a href="lesson2.html">📖 第2講 連続・逆関数</a></li>
+      <li><a href="lesson3.html">📖 第3講 微分・対数微分</a></li>
+      <li><a href="lesson4.html">📖 第4講 高次導関数</a></li>
+      <li><a href="lesson5.html">📖 第5講 テイラー展開</a></li>
+      <li><a href="lesson6.html">📖 第6講 マクローリン展開</a></li>
+      <li><a href="lesson7.html">📖 第7講 ロピタルの定理</a></li>
+      <li><a href="lesson8.html">📖 第8講 置換積分法</a></li>
+      <li><a href="lesson9.html">📖 第9講 部分積分法</a></li>
+      <li><a href="lesson10.html">📖 第10講 三角関数の積分</a></li>
+      <li><a href="lesson11.html">📖 第11講 定積分の定義</a></li>
+      <li><a href="lesson12.html">📖 第12講 広義積分</a></li>
+      <li><a href="lesson13.html">📖 第13講 面積・回転体</a></li>
+      <li><a href="lesson14.html">📖 第14講 偏微分・全微分</a></li>
+      <li><a href="lesson15.html">📖 第15講 総復習</a></li>
+    </ul>
+  </aside>
 
   <div class="container">
     <header>
@@ -163,15 +320,13 @@
     </header>
 
     <main class="content-grid">
-      <!-- 左側：動画セクション（2つの動画を配置） -->
+      <!-- 左側：動画セクション -->
       <section class="card">
         <h2 class="card-title">🎥 授業動画</h2>
         
-        <!-- ① 講義動画 -->
         <div class="video-block">
           <div class="video-subtitle">① 講義動画</div>
           <div class="video-wrapper">
-            <!-- 「YOUR_LECTURE_VIDEO_ID」を講義動画のYouTube IDに変更してください -->
             <iframe 
               src="https://www.youtube.com/embed/YOUR_LECTURE_VIDEO_ID?playsinline=1&rel=0&modestbranding=1" 
               title="① 講義動画" 
@@ -181,11 +336,9 @@
           </div>
         </div>
 
-        <!-- ② 演習問題解説動画 -->
         <div class="video-block">
           <div class="video-subtitle">② 演習問題解説動画</div>
           <div class="video-wrapper">
-            <!-- 「YOUR_EXERCISE_VIDEO_ID」を演習動画のYouTube IDに変更してください -->
             <iframe 
               src="https://www.youtube.com/embed/YOUR_EXERCISE_VIDEO_ID?playsinline=1&rel=0&modestbranding=1" 
               title="② 演習問題解説動画" 
@@ -208,6 +361,16 @@
       </section>
     </main>
   </div>
+
+  <!-- 開閉JavaScript -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('open');
+    }
+  </script>
 
 </body>
 </html>
