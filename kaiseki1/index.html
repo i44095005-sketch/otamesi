@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>解析学Ⅰ - 講義一覧</title>
+  <title>解析学Ⅰ - 講義一覧 | 大学院受験予備校</title>
   <style>
     * {
       box-sizing: border-box;
@@ -36,12 +36,17 @@
       z-index: 1000;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
-    .nav-title {
+    /* 中央：サイトトップに戻るリンク */
+    .nav-portal-title {
       font-weight: bold;
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: #ffffff;
       text-decoration: none;
       white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .nav-portal-title:hover {
+      opacity: 0.8;
     }
 
     /* メニュー切替ボタン */
@@ -225,9 +230,10 @@
 
   <!-- 🌐 固定上部ナビゲーション -->
   <nav class="global-nav">
-    <button class="menu-toggle btn-subject-toggle" onclick="toggleSubjectSidebar()">📚 科目</button>
-    <a href="index.html" class="nav-title">解析学Ⅰ</a>
-    <button class="menu-toggle" onclick="toggleLessonSidebar()">☰ 講義</button>
+    <button class="menu-toggle btn-subject-toggle" onclick="toggleSubjectSidebar()">📚 他科目へ</button>
+    <!-- 中央：サイトトップに戻るリンク -->
+    <a href="../index.html" class="nav-portal-title">🏠 大学院受験予備校</a>
+    <button class="menu-toggle" onclick="toggleLessonSidebar()">☰ 講義一覧</button>
   </nav>
 
   <div class="overlay" id="overlay" onclick="closeAllSidebars()"></div>
@@ -239,6 +245,7 @@
       <button class="close-btn" onclick="closeAllSidebars()">×</button>
     </div>
     <ul class="sidebar-list">
+      <li><a href="../index.html">🏠 トップ（科目一覧）</a></li>
       <li><a href="index.html" class="active">📘 解析学Ⅰ</a></li>
       <li><a href="#">📗 解析学Ⅱ（準備中）</a></li>
       <li><a href="#">📙 線形代数（準備中）</a></li>
