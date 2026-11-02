@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>解析学Ⅰ - 第1講</title>
+  <title>大学院受験予備校 - 解析学Ⅰ 第1講</title>
   <style>
     * {
       box-sizing: border-box;
@@ -35,12 +35,17 @@
       z-index: 1000;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
-    .nav-title {
+    /* ヘッダー中央：サイトトップ（ポータル）への戻りリンク */
+    .nav-portal-title {
       font-weight: bold;
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: #ffffff;
       text-decoration: none;
       white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .nav-portal-title:hover {
+      opacity: 0.8;
     }
 
     /* メニュー切替ボタン */
@@ -123,7 +128,7 @@
       text-align: center;
     }
     
-    /* 1段目：前の講義 - 第1講 - 次の講義 */
+    /* 1段目：[← 前の講義] [解析学Ⅰ 第1講] [次の講義 →] */
     .lesson-nav-bar {
       display: flex;
       justify-content: space-between;
@@ -136,7 +141,7 @@
       font-weight: bold;
       color: #2b6cb0;
       background-color: #ebf8ff;
-      padding: 4px 16px;
+      padding: 6px 20px;
       border-radius: 20px;
       border: 1px solid #bee3f8;
     }
@@ -152,7 +157,7 @@
     /* 3段目：細字の講義説明文 */
     .lesson-description {
       font-size: 0.9rem;
-      font-weight: 300; /* 細字指定 */
+      font-weight: 300;
       color: #64748b;
       line-height: 1.6;
     }
@@ -214,7 +219,8 @@
   <!-- 🌐 固定上部ナビゲーション -->
   <nav class="global-nav">
     <button class="menu-toggle btn-subject-toggle" onclick="toggleSubjectSidebar()">📚 他科目へ</button>
-    <a href="index.html" class="nav-title">解析学Ⅰ</a>
+    <!-- 中央：サイトトップに戻るリンク -->
+    <a href="../index.html" class="nav-portal-title">🏠 大学院受験予備校</a>
     <button class="menu-toggle" onclick="toggleLessonSidebar()">☰ 講義一覧</button>
   </nav>
 
@@ -227,11 +233,12 @@
       <button class="close-btn" onclick="closeAllSidebars()">×</button>
     </div>
     <ul class="sidebar-list">
+      <li><a href="../index.html">🏠 トップ（科目一覧）</a></li>
       <li><a href="index.html" class="active">📘 解析学Ⅰ</a></li>
       <li><a href="#">📗 解析学Ⅱ（準備中）</a></li>
-      <li><a href="#">📙 力学基礎（準備中）</a></li>
-      <li><a href="#">📕 プログラミング基礎（準備中）</a></li>
-      <li><a href="#">📓 計算機基礎（準備中）</a></li>
+      <li><a href="#">📙 線形代数（準備中）</a></li>
+      <li><a href="#">📕 微分方程式（準備中）</a></li>
+      <li><a href="#">📓 確率統計（準備中）</a></li>
     </ul>
   </aside>
 
@@ -262,10 +269,10 @@
 
   <div class="container">
     <div class="lesson-header-area">
-      <!-- 1段目：[← 前の講義] [第1講] [次の講義 →] -->
+      <!-- 1段目：[← 前の講義] [解析学Ⅰ 第1講] [次の講義 →] -->
       <div class="lesson-nav-bar">
         <span class="btn-nav-prev btn-nav-disabled">← 前の講義</span>
-        <span class="lesson-number-badge">第1講</span>
+        <span class="lesson-number-badge">解析学Ⅰ 第1講</span>
         <a href="lesson02.html" class="btn-nav-next">次の講義 →</a>
       </div>
       
