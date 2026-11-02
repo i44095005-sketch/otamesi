@@ -115,15 +115,33 @@
     /* メインコンテンツ */
     .container { max-width: 1400px; margin: 0 auto; padding: 20px 15px; }
 
-    /* ↔️ 本体の一番上に配置する前後の講義移動バー */
+    /* ↔️ タイトル・前後の講義・説明エリア */
+    .lesson-header-area {
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
     .lesson-nav-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      padding: 10px 0;
-      border-bottom: 1px solid #e2e8f0;
+      gap: 12px;
+      margin-bottom: 12px;
     }
+    .lesson-page-title {
+      font-size: 1.5rem;
+      color: #1a1a1a;
+      text-align: center;
+      margin: 0;
+      flex-grow: 1;
+    }
+    .lesson-description {
+      font-size: 0.95rem;
+      color: #666;
+      text-align: center;
+      line-height: 1.6;
+    }
+
     .btn-nav-prev, .btn-nav-next {
       display: inline-flex;
       align-items: center;
@@ -131,12 +149,14 @@
       background-color: #ffffff;
       border: 1px solid #cbd5e0;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: bold;
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 6px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
       transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .btn-nav-prev:hover, .btn-nav-next:hover {
       background-color: #ebf8ff;
@@ -151,9 +171,6 @@
       box-shadow: none;
     }
 
-    header { margin-bottom: 24px; text-align: center; }
-    header h1 { font-size: 1.6rem; color: #1a1a1a; margin-bottom: 8px; }
-    header p { font-size: 0.95rem; color: #666; }
     .content-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
     .card { background: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); padding: 20px; border: 1px solid #eaeaea; display: flex; flex-direction: column; }
     .card-title { font-size: 1.2rem; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; color: #2c3e50; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; }
@@ -170,7 +187,7 @@
 
     @media (min-width: 992px) {
       .container { padding: 30px; }
-      header h1 { font-size: 2.2rem; }
+      .lesson-page-title { font-size: 1.8rem; }
       .content-grid { grid-template-columns: 1fr 1fr; align-items: start; }
       .pdf-wrapper { height: 900px; }
     }
@@ -228,17 +245,22 @@
   </aside>
 
   <div class="container">
-    <!-- ↔️ 本体コンテンツの一番上：前後の講義移動ボタン -->
-    <div class="lesson-nav-bar">
-      <!-- 第1講なので前の講義は無効化 -->
-      <span class="btn-nav-prev btn-nav-disabled">← 前の講義</span>
-      <a href="lesson02.html" class="btn-nav-next">次の講義 →</a>
+    <!-- ↔️ [ボタン - タイトル - ボタン] の同じ段配置 ＆ その下に説明文 -->
+    <div class="lesson-header-area">
+      <div class="lesson-nav-bar">
+        <!-- 第1講なので前の講義は無効化 -->
+        <span class="btn-nav-prev btn-nav-disabled">← 前の講義</span>
+        
+        <!-- 中央タイトル -->
+        <h1 class="lesson-page-title">第1講 導入、極限、挟み撃ちの原理</h1>
+        
+        <!-- 次の講義ボタン -->
+        <a href="lesson02.html" class="btn-nav-next">次の講義 →</a>
+      </div>
+      
+      <!-- 下段：講義内容の説明 -->
+      <p class="lesson-description">解析学Ⅰの初回の授業です。極限の定理を高校で習ったものよりも厳密にしていきます。</p>
     </div>
-
-    <header>
-      <h1>第1講 導入、極限、挟み撃ちの原理</h1>
-      <p>解析学Ⅰの初回の授業です。極限の定理を高校で習ったものよりも厳密にしていきます。</p>
-    </header>
 
     <main class="content-grid">
       <section class="card">
@@ -252,40 +274,4 @@
         <div class="video-block">
           <div class="video-subtitle">② 演習問題解説動画</div>
           <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/YOUR_EXERCISE_VIDEO_ID?playsinline=1&rel=0&modestbranding=1" title="② 演習問題解説動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2 class="card-title">📄 授業用資料（PDF）</h2>
-        <div class="pdf-wrapper">
-          <iframe src="解析学Ⅰ.pdf" title="授業資料PDF"></iframe>
-        </div>
-        <div class="download-btn-area">
-          <a href="解析学Ⅰ.pdf" download class="btn-download">PDF資料をダウンロード</a>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script>
-    function toggleSubjectSidebar() {
-      closeAllSidebars();
-      document.getElementById('subjectSidebar').classList.add('open');
-      document.getElementById('overlay').classList.add('open');
-    }
-    function toggleLessonSidebar() {
-      closeAllSidebars();
-      document.getElementById('lessonSidebar').classList.add('open');
-      document.getElementById('overlay').classList.add('open');
-    }
-    function closeAllSidebars() {
-      document.getElementById('subjectSidebar').classList.remove('open');
-      document.getElementById('lessonSidebar').classList.remove('open');
-      document.getElementById('overlay').classList.remove('open');
-    }
-  </script>
-
-</body>
-</html>
+            <iframe src="https://www.youtube.com/embed/YOUR_EXERCISE_VIDEO_ID?playsinline=1&rel=0&modestbranding=1" title="② 演習問題解説動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
