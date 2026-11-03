@@ -163,8 +163,13 @@
     .overlay.open { display: block; }
 
     /* メインコンテンツ */
-    .container { max-width: 1400px; margin: 0 auto; padding: 20px 15px; }
-
+    .container {
+      max-width: 1200px; /* 幅を最適化 */
+      width: 92%;        /* 画面幅に応じて伸縮するように追記 */
+      margin: 0 auto;
+      padding: 20px 15px;
+    }
+    
     /* ↔️ ヘッダーエリア構成 */
     .lesson-header-area {
       margin-bottom: 24px;
@@ -247,11 +252,22 @@
     .btn-download { display: inline-block; background-color: #007bff; color: #fff; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: background-color 0.2s ease; }
     .btn-download:hover { background-color: #0056b3; }
 
-    @media (min-width: 992px) {
-      .container { padding: 30px; }
-      .lesson-page-title { font-size: 2rem; }
-      .content-grid { grid-template-columns: 1fr 1fr; align-items: start; }
-      .pdf-wrapper { height: 900px; }
+   /* ⭕ 修正後：CSSの一番下にある @media の部分を上書き */
+    @media (min-width: 768px) {
+      .container {
+        padding: 30px;
+      }
+      .lesson-page-title {
+        font-size: 2rem;
+      }
+      .content-grid {
+        grid-template-columns: 1fr 1fr; /* 左右2カラム（50%:50%）で横に広げる */
+        gap: 30px;                     /* カード同士の間隔 */
+        align-items: start;
+      }
+      .pdf-wrapper {
+        height: 800px;                  /* PDFの高さも調整 */
+      }
     }
   </style>
 </head>
