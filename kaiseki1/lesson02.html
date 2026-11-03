@@ -317,7 +317,7 @@
     </main>
   </div>
 
-  <script>
+<script>
     // 🌐 1. 全科目共通の左サイドバーを読み込み
     fetch('/otamesi/sidebar-left.html')
       .then(response => response.text())
@@ -338,7 +338,20 @@
       })
       .catch(error => console.error('右サイドバーの読み込みに失敗しました:', error));
 
-    // 現在閲覧中のページリンクを自動で太字ハイライト（.active化）する関数
+    // 👈 左サイドバー：現在開いている「科目」を判定してハイライト
+    function highlightCurrentSubject() {
+      const currentPath = window.location.pathname;
+      const links = document.querySelectorAll('#subjectSidebar a');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        // URLの中にフォルダ名（例: /kaiseki1/）が含まれているか判定
+        if (href && href !== '#' && href !== '/index.html' && currentPath.includes(href.split('/')[1])) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // 👉 右サイドバー：現在開いている「講義」を判定してハイライト
     function highlightCurrentLesson() {
       const currentPath = window.location.pathname.split('/').pop() || 'index.html';
       const links = document.querySelectorAll('#lessonSidebar a');
