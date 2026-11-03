@@ -331,14 +331,14 @@
   </div>
 
   <script>
-    // 🌐 1. 全科目共通の左サイドバーを読み込み
-    fetch('/sidebar-left.html')
+    // 🌐 1. 全科目共通の左サイドバーを読み込み（先頭の / を削除して relative に指定）
+    fetch('../sidebar-left.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('subjectSidebar').innerHTML = data;
       })
       .catch(error => console.error('左サイドバーの読み込みに失敗しました:', error));
-
+    
     // 📖 2. 科目専用の右サイドバー（sidebar-lesson.html）を読み込み
     fetch('sidebar-lesson.html')
       .then(response => response.text())
