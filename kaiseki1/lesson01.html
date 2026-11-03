@@ -332,11 +332,13 @@
 
 <script>
     // 🌐 1. 全科目共通の左サイドバーを読み込み
-    fetch('../sidebar-left.html')
+    fetch('/otamesi/sidebar-left.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('subjectSidebar').innerHTML = data;
-        highlightCurrentSubject(); // ★左サイドバーの自動ハイライトを実行
+        if (typeof highlightCurrentSubject === 'function') {
+          highlightCurrentSubject();
+        }
       })
       .catch(error => console.error('左サイドバーの読み込みに失敗しました:', error));
 
