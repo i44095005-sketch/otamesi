@@ -452,7 +452,8 @@
       const links = document.querySelectorAll('#subjectSidebar a');
       links.forEach(link => {
         const href = link.getAttribute('href');
-        if (href && href !== '#' && !href.includes('index.html') && currentPath.includes('/kaiseki1/')) {
+        // 現在のURLに '/kaiseki1/' が含まれており、かつリンク先が 'kaiseki1' を指している場合ハイライト
+        if (href && href !== '#' && currentPath.includes('/kaiseki1/')) {
           if (href.includes('kaiseki1')) {
             link.classList.add('active');
           }
