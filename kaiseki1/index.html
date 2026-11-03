@@ -126,15 +126,17 @@
     .sidebar-list a:hover { background: #f1f5f9; color: #007bff; }
     .sidebar-list a.active { background: #ebf8ff; color: #007bff; font-weight: bold; border: 1px solid #bae6fd; }
     
+    /* トップへ戻るボタン：落ち着いたグレー指定 */
     .sidebar-btn-home {
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
+      background: #f1f5f9 !important;
+      border: 1px solid #cbd5e1 !important;
       font-weight: bold !important;
-      color: #1e293b !important;
+      color: #334155 !important;
       margin-bottom: 12px;
     }
     .sidebar-btn-home:hover {
       background: #e2e8f0 !important;
+      color: #007bff !important;
     }
 
     .sidebar-list a.disabled-link {
@@ -232,12 +234,6 @@
       color: #64748b;
       line-height: 1.5;
     }
-    .lesson-card.disabled {
-      background: #f8fafc;
-      border-color: #cbd5e1;
-      opacity: 0.7;
-      pointer-events: none;
-    }
   </style>
 </head>
 <body>
@@ -263,7 +259,7 @@
       <p class="subject-desc">大学院受験に向けた解析学Ⅰの全講義一覧です。受講する講義を選択してください。</p>
     </div>
 
-    <!-- 講義カード一覧 -->
+    <!-- 講義カード一覧（第1講〜第15講） -->
     <main class="lesson-grid">
       <a href="lesson01.html" class="lesson-card">
         <div>
@@ -286,7 +282,6 @@
         </div>
       </a>
 
-      <!-- 第3講以降のカード枠 -->
       <a href="lesson03.html" class="lesson-card">
         <div>
           <div class="lesson-card-head">
@@ -294,72 +289,4 @@
             <span class="badge-prep">準備中</span>
           </div>
           <div class="lesson-card-title">テーラー展開と近似</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-    </main>
-  </div>
-
-  <script>
-    // 🌐 1. 全科目共通の左サイドバーを読み込み
-    fetch('/otamesi/sidebar-left.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('subjectSidebar').innerHTML = data;
-        highlightCurrentSubject(); // 左サイドバーのハイライト実行
-      })
-      .catch(error => console.error('左サイドバーの読み込みに失敗しました:', error));
-
-    // 📖 2. 科目専用の右サイドバー（sidebar-lesson.html）を読み込み
-    fetch('sidebar-lesson.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('lessonSidebar').innerHTML = data;
-        highlightCurrentLesson();
-      })
-      .catch(error => console.error('右サイドバーの読み込みに失敗しました:', error));
-
-    // 👈 左サイドバー：現在開いている「科目」を判定してハイライト
-    function highlightCurrentSubject() {
-      const currentPath = window.location.pathname;
-      const links = document.querySelectorAll('#subjectSidebar a');
-      links.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && href !== '#' && !href.includes('index.html') && currentPath.includes('/kaiseki1/')) {
-          if (href.includes('kaiseki1')) {
-            link.classList.add('active');
-          }
-        }
-      });
-    }
-
-    // 👉 右サイドバー：現在閲覧中の講義リンクを判定
-    function highlightCurrentLesson() {
-      const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-      const links = document.querySelectorAll('#lessonSidebar a');
-      links.forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
-          link.classList.add('active');
-        }
-      });
-    }
-
-    function toggleSubjectSidebar() {
-      closeAllSidebars();
-      document.getElementById('subjectSidebar').classList.add('open');
-      document.getElementById('overlay').classList.add('open');
-    }
-    function toggleLessonSidebar() {
-      closeAllSidebars();
-      document.getElementById('lessonSidebar').classList.add('open');
-      document.getElementById('overlay').classList.add('open');
-    }
-    function closeAllSidebars() {
-      document.getElementById('subjectSidebar').classList.remove('open');
-      document.getElementById('lessonSidebar').classList.remove('open');
-      document.getElementById('overlay').classList.remove('open');
-    }
-  </script>
-
-</body>
-</html>
+          <div class="lesson-card
