@@ -266,66 +266,11 @@
 
   <div class="overlay" id="overlay" onclick="closeAllSidebars()"></div>
 
- <!-- 👈 左側スライド：科目一覧サイドバー -->
-  <aside class="sidebar sidebar-left" id="subjectSidebar">
-    <div class="sidebar-header">
-      <span class="sidebar-title">📚 科目選択</span>
-      <button class="close-btn" onclick="closeAllSidebars()">×</button>
-    </div>
-    <ul class="sidebar-list">
-      <li><a href="../index.html" class="sidebar-btn-home">🏠 トップ（全科目一覧）</a></li>
+  <!-- 👈 左側スライド：外部ファイルから自動読み込み -->
+  <aside class="sidebar sidebar-left" id="subjectSidebar"></aside>
 
-      <!-- 📐 数学系科目 -->
-      <span class="sidebar-category-head">📐 数学系科目</span>
-      <li><a href="index.html" class="active">📘 解析学Ⅰ</a></li>
-      <li><a href="#" class="disabled-link">📗 線形代数 <span class="badge-prep">準備中</span></a></li>
-      <li><a href="#" class="disabled-link">📙 微分方程式 <span class="badge-prep">準備中</span></a></li>
-      <li><a href="#" class="disabled-link">📓 複素関数論 <span class="badge-prep">準備中</span></a></li>
-
-      <!-- 💻 情報系科目 -->
-      <span class="sidebar-category-head">💻 情報系科目</span>
-      <li><a href="#" class="disabled-link">💻 アルゴリズムとデータ構造 <span class="badge-prep">準備中</span></a></li>
-      <li><a href="#" class="disabled-link">🖥️ コンピュータ体系 <span class="badge-prep">準備中</span></a></li>
-
-      <!-- ⚛️ 物理系科目 -->
-      <span class="sidebar-category-head">⚛️ 物理系科目</span>
-      <li><a href="#" class="disabled-link">⚛️ 力学 <span class="badge-prep">準備中</span></a></li>
-      <li><a href="#" class="disabled-link">🧲 電磁気学 <span class="badge-prep">準備中</span></a></li>
-
-      <!-- ⚡ 電気電子系科目 -->
-      <span class="sidebar-category-head">⚡ 電気電子系科目</span>
-      <li><a href="#" class="disabled-link">🔌 電気回路 <span class="badge-prep">準備中</span></a></li>
-      <li><a href="#" class="disabled-link">📻 電子回路 <span class="badge-prep">準備中</span></a></li>
-    </ul>
-  </aside>
-
-  
-  <!-- 👉 右側スライド：講義一覧サイドバー -->
-  <aside class="sidebar sidebar-right" id="lessonSidebar">
-    <div class="sidebar-header">
-      <span class="sidebar-title">解析学Ⅰ 講義一覧</span>
-      <button class="close-btn" onclick="closeAllSidebars()">×</button>
-    </div>
-    <ul class="sidebar-list">
-      <li><a href="index.html" style="background: #edf2f7; font-weight: bold; color: #2b6cb0; margin-bottom: 12px;">🏠 解析学Ⅰ トップ</a></li>
-
-      <li><a href="lesson01.html" class="active">📖 第1講 導入・極限</a></li>
-      <li><a href="lesson02.html">📖 第2講 連続・逆関数</a></li>
-      <li><a href="lesson03.html">📖 第3講 微分・対数微分</a></li>
-      <li><a href="lesson04.html">📖 第4講 高次導関数</a></li>
-      <li><a href="lesson05.html">📖 第5講 テイラー展開</a></li>
-      <li><a href="lesson06.html">📖 第6講 マクローリン展開</a></li>
-      <li><a href="lesson07.html">📖 第7講 ロピタルの定理</a></li>
-      <li><a href="lesson08.html">📖 第8講 置換積分法</a></li>
-      <li><a href="lesson09.html">📖 第9講 部分積分法</a></li>
-      <li><a href="lesson10.html">📖 第10講 三角関数の積分</a></li>
-      <li><a href="lesson11.html">📖 第11講 定積分の定義</a></li>
-      <li><a href="lesson12.html">📖 第12講 広義積分</a></li>
-      <li><a href="lesson13.html">📖 第13講 面積・回転体</a></li>
-      <li><a href="lesson14.html">📖 第14講 偏微分・全微分</a></li>
-      <li><a href="lesson15.html">📖 第15講 総復習</a></li>
-    </ul>
-  </aside>
+  <!-- 👉 右側スライド：外部ファイル（sidebar-lesson.html）から自動読み込み -->
+  <aside class="sidebar sidebar-right" id="lessonSidebar"></aside>
 
   <div class="container">
     <div class="lesson-header-area">
@@ -370,6 +315,34 @@
   </div>
 
   <script>
+    // 🌐 1. 全科目共通の左サイドバーを読み込み
+    fetch('/sidebar-left.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('subjectSidebar').innerHTML = data;
+      })
+      .catch(error => console.error('左サイドバーの読み込みに失敗しました:', error));
+
+    // 📖 2. 科目専用の右サイドバー（sidebar-lesson.html）を読み込み
+    fetch('sidebar-lesson.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('lessonSidebar').innerHTML = data;
+        highlightCurrentLesson(); // 現在開いている講義を自動で強調
+      })
+      .catch(error => console.error('右サイドバーの読み込みに失敗しました:', error));
+
+    // 現在閲覧中のページリンクを自動で太字ハイライト（.active化）する関数
+    function highlightCurrentLesson() {
+      const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+      const links = document.querySelectorAll('#lessonSidebar a');
+      links.forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+          link.classList.add('active');
+        }
+      });
+    }
+
     function toggleSubjectSidebar() {
       closeAllSidebars();
       document.getElementById('subjectSidebar').classList.add('open');
