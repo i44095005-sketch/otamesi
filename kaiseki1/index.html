@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>解析学Ⅰ - 講義一覧 | 大学院受験予備校</title>
+  <title>解析学Ⅰ - 講義一覧</title>
   <style>
     * {
       box-sizing: border-box;
@@ -17,7 +17,6 @@
       color: #333;
       background-color: #f8f9fa;
       padding-top: 60px;
-      padding-bottom: 40px;
     }
 
     /* 🌐 グローバルナビ（上部固定ヘッダー） */
@@ -36,7 +35,6 @@
       z-index: 1000;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
-    /* 中央：サイトトップに戻るリンク */
     .nav-portal-title {
       font-weight: bold;
       font-size: 1rem;
@@ -67,48 +65,90 @@
     .btn-subject-toggle:hover {
       background: #718096;
     }
-
+    
     /* 共通サイドバー設定 */
     .sidebar {
       position: fixed;
       top: 0;
-      width: 280px;
+      width: 300px;
       height: 100%;
       background: #ffffff;
-      box-shadow: 0 0 12px rgba(0,0,0,0.15);
+      box-shadow: 0 0 16px rgba(0,0,0,0.2);
       z-index: 1001;
       transition: all 0.3s ease;
       overflow-y: auto;
-      padding: 20px;
+      padding: 20px 16px;
     }
-    .sidebar-left { left: -280px; }
+    .sidebar-left { left: -300px; }
     .sidebar-left.open { left: 0; }
-    .sidebar-right { right: -280px; }
+    .sidebar-right { right: -300px; }
     .sidebar-right.open { right: 0; }
 
     .sidebar-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid #edf2f7;
+      border-bottom: 2px solid #e2e8f0;
       padding-bottom: 12px;
       margin-bottom: 16px;
     }
-    .sidebar-title { font-size: 1.1rem; font-weight: bold; color: #2d3748; }
-    .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #718096; }
+    .sidebar-title { font-size: 1.15rem; font-weight: bold; color: #1a202c; }
+    .close-btn { background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #a0aec0; padding: 0 8px; }
+    
     .sidebar-list { list-style: none; }
-    .sidebar-list li { margin-bottom: 8px; }
-    .sidebar-list a {
-      display: block;
-      padding: 10px 12px;
+    .sidebar-list li { margin-bottom: 6px; }
+
+    .sidebar-category-head {
+      font-size: 0.82rem;
+      font-weight: bold;
+      color: #334155;
+      background-color: #f1f5f9;
+      padding: 6px 10px;
       border-radius: 6px;
-      color: #4a5568;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      display: block;
+      border-left: 3px solid #007bff;
+    }
+
+    .sidebar-list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: #334155;
       text-decoration: none;
       font-size: 0.95rem;
+      font-weight: 500;
       transition: all 0.2s;
     }
-    .sidebar-list a:hover { background: #edf2f7; color: #007bff; }
-    .sidebar-list a.active { background: #ebf8ff; color: #007bff; font-weight: bold; }
+    .sidebar-list a:hover { background: #f1f5f9; color: #007bff; }
+    .sidebar-list a.active { background: #ebf8ff; color: #007bff; font-weight: bold; border: 1px solid #bae6fd; }
+    
+    .sidebar-btn-home {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      font-weight: bold !important;
+      color: #1e293b !important;
+      margin-bottom: 12px;
+    }
+    .sidebar-btn-home:hover {
+      background: #e2e8f0 !important;
+    }
+
+    .sidebar-list a.disabled-link {
+      color: #94a3b8;
+      pointer-events: none;
+    }
+    .badge-prep {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: normal;
+    }
 
     /* 背景オーバーレイ */
     .overlay {
@@ -118,111 +158,85 @@
     }
     .overlay.open { display: block; }
 
-    /* メインコンテナ */
+    /* メインコンテンツエリア */
     .container {
-      max-width: 1100px;
+      max-width: 1000px;
+      width: 92%;
       margin: 0 auto;
-      padding: 20px 15px;
+      padding: 30px 15px;
     }
-    
-    header {
-      margin-bottom: 32px;
+
+    .subject-header {
       text-align: center;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e2e8f0;
     }
-    header h1 {
-      font-size: 2.2rem;
-      color: #1a1a1a;
+    .subject-title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #1a202c;
       margin-bottom: 8px;
     }
-    header p {
+    .subject-desc {
       font-size: 0.95rem;
-      font-weight: 300;
       color: #64748b;
     }
 
-    /* 講義一覧グリッド */
+    /* 講義グリッド一覧 */
     .lesson-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 16px;
     }
-
-    /* 講義カードリンク */
     .lesson-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       background: #ffffff;
-      padding: 18px 20px;
-      border-radius: 12px;
       border: 1px solid #e2e8f0;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      border-radius: 10px;
+      padding: 18px 20px;
       text-decoration: none;
-      color: #2d3748;
+      color: #334155;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
     .lesson-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-      border-color: #007bff;
+      box-shadow: 0 6px 16px rgba(0,123,255,0.12);
+      border-color: #93c5fd;
     }
-
-    /* テキスト部分（3段構造） */
-    .lesson-info {
+    .lesson-card-head {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
     }
-    
-    /* 1段目：講数バッジ */
-    .lesson-number-badge {
-      font-size: 0.8rem;
+    .lesson-num {
+      font-size: 0.85rem;
       font-weight: bold;
-      color: #2b6cb0;
-      background-color: #ebf8ff;
+      color: #007bff;
+      background: #ebf8ff;
       padding: 2px 10px;
       border-radius: 12px;
-      border: 1px solid #bee3f8;
     }
-
-    /* 2段目：タイトル */
-    .lesson-title {
-      font-size: 1.1rem;
+    .lesson-card-title {
+      font-size: 1.05rem;
       font-weight: bold;
-      color: #1a202c;
-      margin-top: 2px;
+      color: #1e293b;
+      margin-bottom: 6px;
     }
-
-    /* 3段目：細字サブタイトル（説明文） */
-    .lesson-subtitle {
+    .lesson-card-desc {
       font-size: 0.85rem;
-      font-weight: 300;
       color: #64748b;
+      line-height: 1.5;
     }
-
-    /* 右矢印アイコン */
-    .arrow-icon {
-      font-size: 1.2rem;
-      color: #a0aec0;
-      margin-left: 12px;
-      flex-shrink: 0;
-    }
-    .lesson-card:hover .arrow-icon {
-      color: #007bff;
-    }
-
-    /* 💻 PC・タブレット用レイアウト */
-    @media (min-width: 600px) {
-      .lesson-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-      }
-    }
-    @media (min-width: 900px) {
-      .lesson-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
+    .lesson-card.disabled {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      opacity: 0.7;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -231,204 +245,105 @@
   <!-- 🌐 固定上部ナビゲーション -->
   <nav class="global-nav">
     <button class="menu-toggle btn-subject-toggle" onclick="toggleSubjectSidebar()">📚 他科目へ</button>
-    <!-- 中央：サイトトップに戻るリンク -->
-    <a href="../index.html" class="nav-portal-title">🏠 大学院受験予備校</a>
+    <a href="/otamesi/index.html" class="nav-portal-title">🏠 大学院受験予備校</a>
     <button class="menu-toggle" onclick="toggleLessonSidebar()">☰ 講義一覧</button>
   </nav>
 
   <div class="overlay" id="overlay" onclick="closeAllSidebars()"></div>
 
-  <!-- 👈 左側スライド：科目一覧サイドバー -->
-  <aside class="sidebar sidebar-left" id="subjectSidebar">
-    <div class="sidebar-header">
-      <span class="sidebar-title">科目選択</span>
-      <button class="close-btn" onclick="closeAllSidebars()">×</button>
-    </div>
-    <ul class="sidebar-list">
-      <li><a href="../index.html">🏠 トップ（科目一覧）</a></li>
-      <li><a href="index.html" class="active">📘 解析学Ⅰ</a></li>
-      <li><a href="#">📗 解析学Ⅱ（準備中）</a></li>
-      <li><a href="#">📙 線形代数（準備中）</a></li>
-      <li><a href="#">📕 微分方程式（準備中）</a></li>
-      <li><a href="#">📓 確率統計（準備中）</a></li>
-    </ul>
-  </aside>
+  <!-- 👈 左側スライド：全科目共通メニュー -->
+  <aside class="sidebar sidebar-left" id="subjectSidebar"></aside>
 
-  <!-- 👉 右側スライド：講義一覧サイドバー -->
-  <aside class="sidebar sidebar-right" id="lessonSidebar">
-    <div class="sidebar-header">
-      <span class="sidebar-title">解析学Ⅰ 講義一覧</span>
-      <button class="close-btn" onclick="closeAllSidebars()">×</button>
-    </div>
-    <ul class="sidebar-list">
-      <li><a href="lesson01.html">📖 第1講 導入・極限</a></li>
-      <li><a href="lesson02.html">📖 第2講 連続・逆関数</a></li>
-      <li><a href="lesson03.html">📖 第3講 微分・対数微分</a></li>
-      <li><a href="lesson04.html">📖 第4講 高次導関数</a></li>
-      <li><a href="lesson05.html">📖 第5講 テイラー展開</a></li>
-      <li><a href="lesson06.html">📖 第6講 マクローリン展開</a></li>
-      <li><a href="lesson07.html">📖 第7講 ロピタルの定理</a></li>
-      <li><a href="lesson08.html">📖 第8講 置換積分法</a></li>
-      <li><a href="lesson09.html">📖 第9講 部分積分法</a></li>
-      <li><a href="lesson10.html">📖 第10講 三角関数の積分</a></li>
-      <li><a href="lesson11.html">📖 第11講 定積分の定義</a></li>
-      <li><a href="lesson12.html">📖 第12講 広義積分</a></li>
-      <li><a href="lesson13.html">📖 第13講 面積・回転体</a></li>
-      <li><a href="lesson14.html">📖 第14講 偏微分・全微分</a></li>
-      <li><a href="lesson15.html">📖 第15講 総復習</a></li>
-    </ul>
-  </aside>
+  <!-- 👉 右側スライド：解析学Ⅰ共通メニュー -->
+  <aside class="sidebar sidebar-right" id="lessonSidebar"></aside>
 
   <div class="container">
-    <header>
-      <h1>📚 解析学Ⅰ 講義一覧</h1>
-      <p>受講したい講義を選択してください。</p>
-    </header>
+    <div class="subject-header">
+      <h1 class="subject-title">📘 解析学Ⅰ</h1>
+      <p class="subject-desc">大学院受験に向けた解析学Ⅰの全講義一覧です。受講する講義を選択してください。</p>
+    </div>
 
+    <!-- 講義カード一覧 -->
     <main class="lesson-grid">
-
-      <!-- 第1講 -->
       <a href="lesson01.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第1講</span>
-          <span class="lesson-title">導入、極限、挟み撃ちの原理</span>
-          <span class="lesson-subtitle">数列と関数の極限、厳密な定義への導入</span>
+        <div>
+          <div class="lesson-card-head">
+            <span class="lesson-num">第1講</span>
+          </div>
+          <div class="lesson-card-title">導入、極限、挟み撃ちの原理</div>
+          <div class="lesson-card-desc">高校で習った極限の定義をさらに厳密にしていきます。</div>
         </div>
-        <span class="arrow-icon">→</span>
       </a>
 
-      <!-- 第2講 -->
       <a href="lesson02.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第2講</span>
-          <span class="lesson-title">連続関数、逆関数、逆三角関数</span>
-          <span class="lesson-subtitle">関数の連続性と逆機能の基本的性質</span>
+        <div>
+          <div class="lesson-card-head">
+            <span class="lesson-num">第2講</span>
+            <span class="badge-prep">準備中</span>
+          </div>
+          <div class="lesson-card-title">微分法の基本概念</div>
+          <div class="lesson-card-desc">順次公開予定です。</div>
         </div>
-        <span class="arrow-icon">→</span>
       </a>
 
-      <!-- 第3講 -->
+      <!-- 第3講以降のカード枠 -->
       <a href="lesson03.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第3講</span>
-          <span class="lesson-title">微分、対数微分法</span>
-          <span class="lesson-subtitle">導関数の定義と対数を活用した微分テクニック</span>
+        <div>
+          <div class="lesson-card-head">
+            <span class="lesson-num">第3講</span>
+            <span class="badge-prep">準備中</span>
+          </div>
+          <div class="lesson-card-title">テーラー展開と近似</div>
+          <div class="lesson-card-desc">順次公開予定です。</div>
         </div>
-        <span class="arrow-icon">→</span>
       </a>
-
-      <!-- 第4講 -->
-      <a href="lesson04.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第4講</span>
-          <span class="lesson-title">高次導関数、ライプニッツの公式</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
-      <!-- 第5講 -->
-      <a href="lesson05.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第5講</span>
-          <span class="lesson-title">テイラーの定理、テイラー展開</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
-      <!-- 第6講 -->
-      <a href="lesson06.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第6講</span>
-          <span class="lesson-title">マクローリン展開、近似計算</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
-      <!-- 第7講 -->
-      <a href="lesson07.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第7講</span>
-          <span class="lesson-title">不定形、ロピタルの定理</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
-      <!-- 第8講 -->
-      <a href="lesson08.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第8講</span>
-          <span class="lesson-title">不定積分、置換積分法</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
-      <!-- 第9講 -->
-      <a href="lesson09.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第9講</span>
-          <span class="lesson-title">部分積分法、有理関数の積分</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
-      <!-- 第10講 -->
-      <a href="lesson10.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第10講</span>
-          <span class="lesson-title">三角関数・無理関数の積分</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
-      <!-- 第11講 -->
-      <a href="lesson11.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第11講</span>
-          <span class="lesson-title">定積分の定義、微積分学の基本定理</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
-      <!-- 第12講 -->
-      <a href="lesson12.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第12講</span>
-          <span class="lesson-title">広義積分（無限区間・無界関数）</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
-      <!-- 第13講 -->
-      <a href="lesson13.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第13講</span>
-          <span class="lesson-title">面積、弧長、回転体の体積</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
-      <!-- 第14講 -->
-      <a href="lesson14.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第14講</span>
-          <span class="lesson-title">2変数関数、偏微分、全微分</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
-      <!-- 第15講 -->
-      <a href="lesson15.html" class="lesson-card">
-        <div class="lesson-info">
-          <span class="lesson-number-badge">第15講</span>
-          <span class="lesson-title">総復習とまとめ</span>
-        </div>
-        <span class="arrow-icon">→</span>
-      </a>
-
     </main>
   </div>
 
   <script>
+    // 🌐 1. 全科目共通の左サイドバーを読み込み
+    fetch('/otamesi/sidebar-left.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('subjectSidebar').innerHTML = data;
+        highlightCurrentSubject(); // 左サイドバーのハイライト実行
+      })
+      .catch(error => console.error('左サイドバーの読み込みに失敗しました:', error));
+
+    // 📖 2. 科目専用の右サイドバー（sidebar-lesson.html）を読み込み
+    fetch('sidebar-lesson.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('lessonSidebar').innerHTML = data;
+        highlightCurrentLesson();
+      })
+      .catch(error => console.error('右サイドバーの読み込みに失敗しました:', error));
+
+    // 👈 左サイドバー：現在開いている「科目」を判定してハイライト
+    function highlightCurrentSubject() {
+      const currentPath = window.location.pathname;
+      const links = document.querySelectorAll('#subjectSidebar a');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href !== '#' && !href.includes('index.html') && currentPath.includes('/kaiseki1/')) {
+          if (href.includes('kaiseki1')) {
+            link.classList.add('active');
+          }
+        }
+      });
+    }
+
+    // 👉 右サイドバー：現在閲覧中の講義リンクを判定
+    function highlightCurrentLesson() {
+      const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+      const links = document.querySelectorAll('#lessonSidebar a');
+      links.forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+          link.classList.add('active');
+        }
+      });
+    }
+
     function toggleSubjectSidebar() {
       closeAllSidebars();
       document.getElementById('subjectSidebar').classList.add('open');
