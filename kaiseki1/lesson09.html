@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>解析学Ⅰ - 第8講 | 大学院受験予備校</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+      padding-top: 60px;
+    }
+
+    /* 🌐 グローバルナビ（上部固定ヘッダー） */
+    .global-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 56px;
+      background-color: #1a202c;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .nav-portal-title {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #ffffff;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .nav-portal-title:hover {
+      opacity: 0.8;
+    }
+
+    /* メニュー切替ボタン */
+    .menu-toggle {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .btn-subject-toggle {
+      background: #4a5568;
+    }
+    .btn-subject-toggle:hover {
+      background: #718096;
+    }
+    
+    /* 共通サイドバー設定 */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      width: 300px;
+      height: 100%;
+      background: #ffffff;
+      box-shadow: 0 0 16px rgba(0,0,0,0.2);
+      z-index: 1001;
+      transition: all 0.3s ease;
+      overflow-y: auto;
+      padding: 20px 16px;
+    }
+    .sidebar-left { left: -300px; }
+    .sidebar-left.open { left: 0; }
+    .sidebar-right { right: -300px; }
+    .sidebar-right.open { right: 0; }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .sidebar-title { font-size: 1.15rem; font-weight: bold; color: #1a202c; }
+    .close-btn { background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #a0aec0; padding: 0 8px; }
+    
+    .sidebar-list { list-style: none; }
+    .sidebar-list li { margin-bottom: 6px; }
+
+    .sidebar-category-head {
+      font-size: 0.82rem;
+      font-weight: bold;
+      color: #334155;
+      background-color: #f1f5f9;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      display: block;
+      border-left: 3px solid #007bff;
+    }
+
+    .sidebar-list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: #334155;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .sidebar-list a:hover { background: #f1f5f9; color: #007bff; }
+    .sidebar-list a.active { background: #ebf8ff; color: #007bff; font-weight: bold; border: 1px solid #bae6fd; }
+    
+    /* トップへ戻るボタン：落ち着いたグレー指定 */
+    .sidebar-btn-home {
+      background: #f1f5f9 !important;
+      border: 1px solid #cbd5e1 !important;
+      font-weight: bold !important;
+      color: #334155 !important;
+      margin-bottom: 12px;
+    }
+    .sidebar-btn-home:hover {
+      background: #e2e8f0 !important;
+      color: #007bff !important;
+    }
+
+    .sidebar-list a.disabled-link {
+      color: #94a3b8;
+      pointer-events: none;
+    }
+    .badge-prep {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: normal;
+    }
+
+    /* 背景オーバーレイ */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4); z-index: 1000; display: none;
+    }
+    .overlay.open { display: block; }
+
+    /* メインコンテンツ（lesson01.htmlと共通） */
+    .container {
+      max-width: 1200px;
+      width: 92%;
+      margin: 0 auto;
+      padding: 20px 15px;
+    }
+
+    /* ↔️ ヘッダーエリア構成（lesson01.htmlと共通） */
+    .lesson-header-area {
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: center;
+    }
+    
+    .lesson-nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .lesson-number-badge {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #2b6cb0;
+      background-color: #ebf8ff;
+      padding: 6px 20px;
+      border-radius: 20px;
+      border: 1px solid #bee3f8;
+    }
+
+    .btn-nav-prev, .btn-nav-next {
+      display: inline-flex;
+      align-items: center;
+      color: #2b6cb0;
+      background-color: #ffffff;
+      border: 1px solid #cbd5e0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: bold;
+      padding: 8px 14px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-nav-prev:hover, .btn-nav-next:hover {
+      background-color: #ebf8ff;
+      border-color: #3182ce;
+      color: #2b6cb0;
+    }
+    .btn-nav-disabled {
+      color: #a0aec0;
+      background-color: #edf2f7;
+      border-color: #e2e8f0;
+      pointer-events: none;
+      box-shadow: none;
+    }
+
+    /* 🚧 中央の準備中カード（画像のデザインそのまま） */
+    .prep-card-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 0 60px;
+    }
+    .prep-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      padding: 45px 30px;
+      text-align: center;
+      border: 1px solid #eaeaea;
+      max-width: 540px;
+      width: 100%;
+    }
+    .prep-icon {
+      font-size: 3.2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .prep-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #1a202c;
+      margin-bottom: 12px;
+    }
+    .prep-message {
+      font-size: 0.92rem;
+      color: #64748b;
+      line-height: 1.7;
+      margin-bottom: 26px;
+    }
+    .btn-primary-action {
+      display: inline-block;
+      background-color: #3182ce;
+      color: #ffffff;
+      padding: 10px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary-action:hover {
+      background-color: #2b6cb0;
+    }
+
+    @media (min-width: 768px) {
+      .container { padding: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🌐 固定上部ナビゲーション（他のページと完全一致） -->
+  <nav class="global-nav">
+    <button class="menu-toggle btn-subject-toggle" onclick="toggleSubjectSidebar()">📚 他科目へ</button>
+    <a href="/otamesi/index.html" class="nav-portal-title">🏠 大学院受験予備校</a>
+    <button class="menu-toggle" onclick="toggleLessonSidebar()">☰ 講義一覧</button>
+  </nav>
+
+  <div class="overlay" id="overlay" onclick="closeAllSidebars()"></div>
+
+  <!-- 👈 左側スライド：外部ファイルから自動読み込み -->
+  <aside class="sidebar sidebar-left" id="subjectSidebar"></aside>
+
+  <!-- 👉 右側スライド：外部ファイルから自動読み込み -->
+  <aside class="sidebar sidebar-right" id="lessonSidebar"></aside>
+
+  <div class="container">
+    <!-- ↔️ 上部講義ナビゲーション（lesson01.htmlと共通） -->
+    <div class="lesson-header-area">
+      <div class="lesson-nav-bar">
+        <a href="lesson07.html" class="btn-nav-prev">← 前の講義</a>
+        <span class="lesson-number-badge">解析学Ⅰ 第8講</span>
+        <a href="lesson09.html" class="btn-nav-next">次の講義 →</a>
+      </div>
+    </div>
+
+    <!-- 🚧 画面ど真ん中の準備中メッセージ表示エリア -->
+    <main class="prep-card-wrapper">
+      <div class="prep-card">
+        <span class="prep-icon">🚧</span>
+        <h1 class="prep-title">第9講は準備中です</h1>
+        <p class="prep-message">
+          こちらの講義動画およびテキスト資料は順次公開予定です。<br>
+          公開まで今しばらくお待ちください。
+        </p>
+        <a href="index.html" class="btn-primary-action">講義一覧へ戻る</a>
+      </div>
+    </main>
+  </div>
+
+<script>
+    // 🌐 1. 全科目共通の左サイドバーを読み込み
+    fetch('/otamesi/sidebar-left.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('subjectSidebar').innerHTML = data;
+        if (typeof highlightCurrentSubject === 'function') {
+          highlightCurrentSubject();
+        }
+      })
+      .catch(error => console.error('左サイドバーの読み込みに失敗しました:', error));
+
+    // 📖 2. 科目専用の右サイドバー（sidebar-lesson.html）を読み込み
+    fetch('sidebar-lesson.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('lessonSidebar').innerHTML = data;
+        highlightCurrentLesson();
+      })
+      .catch(error => console.error('右サイドバーの読み込みに失敗しました:', error));
+
+    // 👈 左サイドバー：現在開いている「科目」を判定してハイライト
+    function highlightCurrentSubject() {
+      const currentPath = window.location.pathname;
+      const links = document.querySelectorAll('#subjectSidebar a');
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        // URLの中にフォルダ名（例: /kaiseki1/）が含まれているか判定
+        if (href && href !== '#' && href !== '/index.html' && currentPath.includes(href.split('/')[1])) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // 👉 右サイドバー：現在開いている「講義」を判定してハイライト
+    function highlightCurrentLesson() {
+      const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+      const links = document.querySelectorAll('#lessonSidebar a');
+      links.forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    function toggleSubjectSidebar() {
+      closeAllSidebars();
+      document.getElementById('subjectSidebar').classList.add('open');
+      document.getElementById('overlay').classList.add('open');
+    }
+    function toggleLessonSidebar() {
+      closeAllSidebars();
+      document.getElementById('lessonSidebar').classList.add('open');
+      document.getElementById('overlay').classList.add('open');
+    }
+    function closeAllSidebars() {
+      document.getElementById('subjectSidebar').classList.remove('open');
+      document.getElementById('lessonSidebar').classList.remove('open');
+      document.getElementById('overlay').classList.remove('open');
+    }
+  </script>
+
+</body>
+</html>
