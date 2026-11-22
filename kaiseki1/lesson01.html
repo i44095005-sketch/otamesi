@@ -31,23 +31,174 @@
     }
 
     /* 上部ナビ & サイドバー（既存共通） */
+/* 🌐 グローバルナビ（上部固定ヘッダー） */
     .global-nav {
-      position: fixed; top: 0; left: 0; width: 100%; height: 56px;
-      background-color: #1a202c; color: #fff;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 15px; z-index: 1000;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 56px;
+      background-color: #1a202c;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
-    .nav-portal-title { font-weight: bold; font-size: 1rem; color: #fff; text-decoration: none; }
-    .menu-toggle { background: #007bff; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: bold; }
-    .btn-subject-toggle { background: #4a5568; }
-    .sidebar { position: fixed; top: 0; width: 300px; height: 100%; background: #fff; box-shadow: 0 0 16px rgba(0,0,0,0.2); z-index: 1001; transition: 0.3s; overflow-y: auto; padding: 20px 16px; }
-    .sidebar-left { left: -300px; } .sidebar-left.open { left: 0; }
-    .sidebar-right { right: -300px; } .sidebar-right.open { right: 0; }
-    .sidebar-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px; }
-    .sidebar-list { list-style: none; }
-    .sidebar-list a { display: flex; justify-content: space-between; padding: 10px 12px; border-radius: 8px; color: #334155; text-decoration: none; font-size: 0.95rem; }
-    .sidebar-list a.active { background: #ebf8ff; color: #007bff; font-weight: bold; }
-    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1000; display: none; }
+    .nav-portal-title {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #ffffff;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .nav-portal-title:hover {
+      opacity: 0.8;
+    }
+
+    /* メニュー切替ボタン */
+    .menu-toggle {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .btn-subject-toggle {
+      background: #4a5568;
+    }
+    .btn-subject-toggle:hover {
+      background: #718096;
+    }
+    
+    /* 共通サイドバー設定（元のデザイン復元） */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      width: 300px;
+      height: 100%;
+      background: #ffffff;
+      box-shadow: 0 0 16px rgba(0,0,0,0.2);
+      z-index: 1001;
+      transition: all 0.3s ease;
+      overflow-y: auto;
+      padding: 20px 16px;
+    }
+    .sidebar-left { left: -300px; }
+    .sidebar-left.open { left: 0; }
+    .sidebar-right { right: -300px; }
+    .sidebar-right.open { right: 0; }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .sidebar-title {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: #1a202c;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #a0aec0;
+      padding: 0 8px;
+      line-height: 1;
+    }
+    .close-btn:hover {
+      color: #4a5568;
+    }
+    
+    .sidebar-list {
+      list-style: none;
+    }
+    .sidebar-list li {
+      margin-bottom: 6px;
+    }
+
+    /* カテゴリ見出し（左の青い縦線＋グレー背景） */
+    .sidebar-category-head {
+      font-size: 0.82rem;
+      font-weight: bold;
+      color: #334155;
+      background-color: #f1f5f9;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      display: block;
+      border-left: 3px solid #007bff;
+    }
+
+    .sidebar-list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: #334155;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .sidebar-list a:hover {
+      background: #f1f5f9;
+      color: #007bff;
+    }
+    .sidebar-list a.active {
+      background: #ebf8ff;
+      color: #007bff;
+      font-weight: bold;
+      border: 1px solid #bae6fd;
+    }
+    
+    /* トップへ戻るボタン（落ち着いたグレー指定） */
+    .sidebar-btn-home {
+      background: #f1f5f9 !important;
+      border: 1px solid #cbd5e1 !important;
+      font-weight: bold !important;
+      color: #334155 !important;
+      margin-bottom: 12px;
+    }
+    .sidebar-btn-home:hover {
+      background: #e2e8f0 !important;
+      color: #007bff !important;
+    }
+
+    /* 準備中リンクとバッジ */
+    .sidebar-list a.disabled-link {
+      color: #94a3b8;
+      pointer-events: none;
+    }
+    .badge-prep {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: normal;
+    }
+
+    /* 背景オーバーレイ */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4); z-index: 1000; display: none;
+    }
     .overlay.open { display: block; }
 
     /* メインコンテナ */
