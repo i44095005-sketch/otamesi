@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>第1講：導入、極限、挟み撃ちの原理 - 解析学Ⅰ</title>
+
+  <!-- 📐 MathJax v3 設定と読み込み -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -146,28 +161,42 @@
     .quiz-item {
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 18px;
-      margin-bottom: 18px;
+      padding: 20px;
+      margin-bottom: 20px;
     }
-    .quiz-q { font-weight: bold; font-size: 1.05rem; margin-bottom: 12px; color: #1e293b; }
-    .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+    .quiz-q {
+      font-weight: bold;
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+      color: #1e293b;
+      line-height: 1.8; /* 分数などの上下余白を確保 */
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
     .quiz-option {
       text-align: left;
-      padding: 10px 14px;
+      padding: 12px 16px;
       border: 1px solid #cbd5e1;
       border-radius: 8px;
       background: #f8fafc;
       cursor: pointer;
-      font-size: 0.95rem;
+      font-size: 0.98rem;
+      line-height: 1.7;
       transition: 0.15s;
     }
-    .quiz-option:hover { background: #eff6ff; border-color: #93c5fd; }
+    .quiz-option:hover {
+      background: #eff6ff;
+      border-color: #93c5fd;
+    }
     .quiz-result {
-      margin-top: 12px;
-      padding: 10px 14px;
+      margin-top: 14px;
+      padding: 12px 16px;
       border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: bold;
+      font-size: 0.95rem;
+      line-height: 1.7;
       display: none;
     }
     .quiz-result.correct { display: block; background: #dcfce7; color: #166534; }
@@ -211,7 +240,6 @@
     <!-- ① 講義動画パネル -->
     <section class="step-panel active" id="panel-lecture">
       <div class="video-wrapper">
-        <!-- YouTube動画IDを差し替えてください -->
         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
       </div>
       <div class="complete-bar">
@@ -223,7 +251,6 @@
     <!-- ② 演習解説動画パネル -->
     <section class="step-panel" id="panel-exercise">
       <div class="video-wrapper">
-        <!-- 演習動画IDを差し替えてください -->
         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
       </div>
       <div class="complete-bar">
@@ -232,26 +259,39 @@
       </div>
     </section>
 
-    <!-- ③ 理解度チェックパネル -->
+    <!-- ③ 理解度チェックパネル（LaTeX数式対応） -->
     <section class="step-panel" id="panel-quiz">
-      <!-- 問題1 -->
+      <!-- 問題1（極限と分数） -->
       <div class="quiz-item" data-qid="q1" data-answer="1">
-        <div class="quiz-q">Q1. lim(x→0) (sin x / x) の値はどれか？</div>
+        <div class="quiz-q">
+          Q1. 次の極限値を求めよ。
+          $$\lim_{x \to 0} \frac{\sin x}{x}$$
+        </div>
         <div class="quiz-options">
-          <button class="quiz-option" onclick="answerQuiz('q1', 0, 1, '解説：挟み撃ちの原理より 1 に収束します。')">0</button>
-          <button class="quiz-option" onclick="answerQuiz('q1', 1, 1, '解説：挟み撃ちの原理より 1 に収束します。')">1</button>
-          <button class="quiz-option" onclick="answerQuiz('q1', 2, 1, '解説：挟み撃ちの原理より 1 に収束します。')">∞（発散）</button>
+          <button class="quiz-option" onclick="answerQuiz('q1', 0, 1)">$0$</button>
+          <button class="quiz-option" onclick="answerQuiz('q1', 1, 1)">$1$</button>
+          <button class="quiz-option" onclick="answerQuiz('q1', 2, 1)">$\infty$（発散する）</button>
+        </div>
+        <!-- 解説テキストをHTML内にhiddenで保持（バックスラッシュのエスケープ崩れを防ぐため） -->
+        <div class="quiz-explanation" id="exp-q1" style="display:none;">
+          解説：$0 &lt; x &lt; \frac{\pi}{2}$ において $\sin x &lt; x &lt; \tan x$ が成り立つため、挟み撃ちの原理より $\lim_{x \to 0} \frac{\sin x}{x} = 1$ に収束します。
         </div>
         <div class="quiz-result" id="result-q1"></div>
       </div>
 
-      <!-- 問題2 -->
+      <!-- 問題2（積分の例） -->
       <div class="quiz-item" data-qid="q2" data-answer="2">
-        <div class="quiz-q">Q2. 挟み撃ちの原理が成立するための条件として正しいものは？</div>
+        <div class="quiz-q">
+          Q2. 次の広義積分の値として正しいものはどれか。
+          $$\int_{1}^{\infty} \frac{1}{x^2} \, dx$$
+        </div>
         <div class="quiz-options">
-          <button class="quiz-option" onclick="answerQuiz('q2', 0, 2, '解説：両端の関数が同じ極限値 α に収束する必要があります。')">両端の関数が単調増加であること</button>
-          <button class="quiz-option" onclick="answerQuiz('q2', 1, 2, '解説：両端の関数が同じ極限値 α に収束する必要があります。')">真ん中の関数が連続であること</button>
-          <button class="quiz-option" onclick="answerQuiz('q2', 2, 2, '解説：両端の関数が同じ極限値 α に収束する必要があります。')">両端の関数が同じ極限値に収束すること</button>
+          <button class="quiz-option" onclick="answerQuiz('q2', 0, 2)">$0$</button>
+          <button class="quiz-option" onclick="answerQuiz('q2', 1, 2)">$\frac{1}{2}$</button>
+          <button class="quiz-option" onclick="answerQuiz('q2', 2, 2)">$1$</button>
+        </div>
+        <div class="quiz-explanation" id="exp-q2" style="display:none;">
+          解説：$\lim_{b \to \infty} \left[ -\frac{1}{x} \right]_{1}^{b} = \lim_{b \to \infty} \left( -\frac{1}{b} + 1 \right) = 1$ となります。
         </div>
         <div class="quiz-result" id="result-q2"></div>
       </div>
@@ -264,11 +304,9 @@
   </div>
 
   <script>
-    // ★この講義の識別ID（第2講なら 'lesson02' に変更）
     const LESSON_ID = 'lesson01';
     const STORAGE_KEY = 'edu_progress_kaiseki1';
 
-    // localStorageから学習データを取得
     function getProgressData() {
       const raw = localStorage.getItem(STORAGE_KEY);
       const data = raw ? JSON.parse(raw) : {};
@@ -278,17 +316,15 @@
       return data;
     }
 
-    // localStorageへ保存して画面表示を更新
     function saveProgressData(data) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       renderProgressUI();
     }
 
-    // 画面上のバッジ・完了ボタン・クイズ履歴を復元
     function renderProgressUI() {
       const data = getProgressData()[LESSON_ID];
 
-      // ① 講義動画の状態反映
+      // ① 講義動画
       const badgeLec = document.getElementById('badge-lecture');
       const btnLec = document.getElementById('btn-done-lecture');
       if (data.lecture) {
@@ -303,7 +339,7 @@
         btnLec.classList.remove('completed');
       }
 
-      // ② 演習解説の状態反映
+      // ② 演習解説
       const badgeEx = document.getElementById('badge-exercise');
       const btnEx = document.getElementById('btn-done-exercise');
       if (data.exercise) {
@@ -318,19 +354,21 @@
         btnEx.classList.remove('completed');
       }
 
-      // ③ クイズの正誤結果の復元
+      // ③ クイズ結果の復元
       const quizItems = document.querySelectorAll('.quiz-item');
       let correctCount = 0;
       quizItems.forEach(item => {
         const qid = item.getAttribute('data-qid');
         const status = data.quiz[qid];
         const resBox = document.getElementById('result-' + qid);
+        const expHTML = document.getElementById('exp-' + qid)?.innerHTML || '';
+
         if (status === 'correct') {
           correctCount++;
-          resBox.textContent = '⭕ 前回の結果：正解！';
+          resBox.innerHTML = '<strong>⭕ 前回の結果：正解！</strong><br>' + expHTML;
           resBox.className = 'quiz-result correct';
         } else if (status === 'incorrect') {
-          resBox.textContent = '❌ 前回の結果：不正解（再挑戦できます）';
+          resBox.innerHTML = '<strong>❌ 前回の結果：不正解（再挑戦できます）</strong><br>' + expHTML;
           resBox.className = 'quiz-result incorrect';
         }
       });
@@ -341,33 +379,43 @@
         if (correctCount === quizItems.length) badgeQuiz.classList.add('done');
         else badgeQuiz.classList.remove('done');
       }
+
+      // MathJaxの再レンダリング（表示された解説文の数式を変換）
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise();
+      }
     }
 
-    // 動画の完了トグル
     function toggleVideoDone(type) {
       const data = getProgressData();
       data[LESSON_ID][type] = !data[LESSON_ID][type];
       saveProgressData(data);
     }
 
-    // クイズ回答時の処理（正解・不正解をlocalStorageに記録）
-    function answerQuiz(qid, selectedIndex, correctIndex, explanation) {
+    // クイズ回答時の処理
+    function answerQuiz(qid, selectedIndex, correctIndex) {
       const data = getProgressData();
       const isCorrect = (selectedIndex === correctIndex);
       data[LESSON_ID].quiz[qid] = isCorrect ? 'correct' : 'incorrect';
       saveProgressData(data);
 
       const resBox = document.getElementById('result-' + qid);
+      const expHTML = document.getElementById('exp-' + qid)?.innerHTML || '';
+
       if (isCorrect) {
-        resBox.textContent = '⭕ 正解！ ' + explanation;
+        resBox.innerHTML = '<strong>⭕ 正解！</strong><br>' + expHTML;
         resBox.className = 'quiz-result correct';
       } else {
-        resBox.textContent = '❌ 不正解… ' + explanation;
+        resBox.innerHTML = '<strong>❌ 不正解…</strong><br>' + expHTML;
         resBox.className = 'quiz-result incorrect';
+      }
+
+      // 解説エリア内の数式をMathJaxで即時変換
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise([resBox]);
       }
     }
 
-    // タブ切替（URLハッシュ #lecture / #exercise / #quiz と連動）
     function switchStep(stepName) {
       document.querySelectorAll('.step-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
@@ -375,9 +423,13 @@
       document.querySelector(`.step-tab[data-step="${stepName}"]`).classList.add('active');
       document.getElementById('panel-' + stepName).classList.add('active');
       history.replaceState(null, null, '#' + stepName);
+
+      // 非表示だったタブを開いた際にも数式レイアウトを最適化
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise();
+      }
     }
 
-    // ページ読み込み時にURLハッシュ（indexからのダイレクトリンク）を判定
     window.addEventListener('DOMContentLoaded', () => {
       renderProgressUI();
       const hash = window.location.hash.replace('#', '');
@@ -386,7 +438,7 @@
       }
     });
 
-    // サイドバー読み込み（既存共通）
+    // サイドバー読み込み
     fetch('/otamesi/sidebar-left.html').then(r => r.text()).then(d => {
       document.getElementById('subjectSidebar').innerHTML = d;
       document.querySelectorAll('#subjectSidebar a').forEach(a => {
