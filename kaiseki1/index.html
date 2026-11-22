@@ -4,490 +4,273 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>解析学Ⅰ - 講義一覧 | リコ・スタ</title>
+  <title>解析学Ⅰ - 講義一覧と学習進捗</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       line-height: 1.6;
       color: #333;
       background-color: #f8f9fa;
       padding-top: 60px;
     }
 
-    /* 🌐 グローバルナビ（上部固定ヘッダー） */
-    .global-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 56px;
-      background-color: #1a202c;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 15px;
-      z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .nav-portal-title {
-      font-weight: bold;
-      font-size: 1rem;
-      color: #ffffff;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: opacity 0.2s;
-    }
-    .nav-portal-title:hover {
-      opacity: 0.8;
-    }
-
-    /* メニュー切替ボタン */
-    .menu-toggle {
-      background: #007bff;
-      color: #fff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: bold;
-      white-space: nowrap;
-    }
-    .btn-subject-toggle {
-      background: #4a5568;
-    }
-    .btn-subject-toggle:hover {
-      background: #718096;
-    }
-    
-    /* 共通サイドバー設定 */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      width: 300px;
-      height: 100%;
-      background: #ffffff;
-      box-shadow: 0 0 16px rgba(0,0,0,0.2);
-      z-index: 1001;
-      transition: all 0.3s ease;
-      overflow-y: auto;
-      padding: 20px 16px;
-    }
-    .sidebar-left { left: -300px; }
-    .sidebar-left.open { left: 0; }
-    .sidebar-right { right: -300px; }
-    .sidebar-right.open { right: 0; }
-
-    .sidebar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-    }
-    .sidebar-title { font-size: 1.15rem; font-weight: bold; color: #1a202c; }
-    .close-btn { background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #a0aec0; padding: 0 8px; }
-    
+    /* 上部ナビ & サイドバー */
+    .global-nav { position: fixed; top: 0; left: 0; width: 100%; height: 56px; background-color: #1a202c; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; z-index: 1000; }
+    .nav-portal-title { font-weight: bold; font-size: 1rem; color: #fff; text-decoration: none; }
+    .menu-toggle { background: #007bff; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: bold; }
+    .btn-subject-toggle { background: #4a5568; }
+    .sidebar { position: fixed; top: 0; width: 300px; height: 100%; background: #fff; box-shadow: 0 0 16px rgba(0,0,0,0.2); z-index: 1001; transition: 0.3s; overflow-y: auto; padding: 20px 16px; }
+    .sidebar-left { left: -300px; } .sidebar-left.open { left: 0; }
+    .sidebar-right { right: -300px; } .sidebar-right.open { right: 0; }
+    .sidebar-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 16px; }
     .sidebar-list { list-style: none; }
-    .sidebar-list li { margin-bottom: 6px; }
-
-    .sidebar-category-head {
-      font-size: 0.82rem;
-      font-weight: bold;
-      color: #334155;
-      background-color: #f1f5f9;
-      padding: 6px 10px;
-      border-radius: 6px;
-      margin-top: 16px;
-      margin-bottom: 8px;
-      display: block;
-      border-left: 3px solid #007bff;
-    }
-
-    .sidebar-list a {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      border-radius: 8px;
-      color: #334155;
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-    .sidebar-list a:hover { background: #f1f5f9; color: #007bff; }
-    .sidebar-list a.active { background: #ebf8ff; color: #007bff; font-weight: bold; border: 1px solid #bae6fd; }
-    
-    /* トップへ戻るボタン：落ち着いたグレー指定 */
-    .sidebar-btn-home {
-      background: #f1f5f9 !important;
-      border: 1px solid #cbd5e1 !important;
-      font-weight: bold !important;
-      color: #334155 !important;
-      margin-bottom: 12px;
-    }
-    .sidebar-btn-home:hover {
-      background: #e2e8f0 !important;
-      color: #007bff !important;
-    }
-
-    .sidebar-list a.disabled-link {
-      color: #94a3b8;
-      pointer-events: none;
-    }
-    .badge-prep {
-      font-size: 0.75rem;
-      color: #94a3b8;
-      background: #f1f5f9;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: normal;
-    }
-
-    /* 背景オーバーレイ */
-    .overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4); z-index: 1000; display: none;
-    }
+    .sidebar-list a { display: flex; justify-content: space-between; padding: 10px 12px; border-radius: 8px; color: #334155; text-decoration: none; font-size: 0.95rem; }
+    .sidebar-list a.active { background: #ebf8ff; color: #007bff; font-weight: bold; }
+    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1000; display: none; }
     .overlay.open { display: block; }
 
-    /* メインコンテンツエリア */
-    .container {
-      max-width: 1000px;
-      width: 92%;
-      margin: 0 auto;
-      padding: 30px 15px;
-    }
+    /* メインコンテナ */
+    .container { max-width: 1000px; width: 92%; margin: 0 auto; padding: 30px 0 60px; }
 
-    .subject-header {
-      text-align: center;
-      margin-bottom: 32px;
-      padding-bottom: 20px;
-      border-bottom: 2px solid #e2e8f0;
-    }
-    .subject-title {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #1a202c;
-      margin-bottom: 8px;
-    }
-    .subject-desc {
-      font-size: 0.95rem;
-      color: #64748b;
-    }
-
-    /* 講義グリッド一覧 */
-    .lesson-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-    .lesson-card {
-      background: #ffffff;
+    /* 学習進捗サマリーバー */
+    .progress-box {
+      background: #fff;
       border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 18px 20px;
-      text-decoration: none;
-      color: #334155;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    .progress-title { font-size: 1.5rem; font-weight: bold; color: #1a202c; }
+    .progress-stats { font-size: 0.95rem; font-weight: bold; color: #007bff; }
+    .progress-bar-bg {
+      width: 100%;
+      height: 12px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #007bff, #10b981);
+      transition: width 0.4s ease;
+    }
+
+    /* 講義リスト（横長カードで①②③への直通リンクを見やすく配置） */
+    .lesson-list {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      gap: 14px;
     }
-    .lesson-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,123,255,0.12);
-      border-color: #93c5fd;
-    }
-    .lesson-card-head {
+    .lesson-row {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 16px;
+      transition: border-color 0.2s;
     }
+    .lesson-row:hover { border-color: #93c5fd; }
+    .lesson-info { flex: 1; min-width: 240px; }
     .lesson-num {
-      font-size: 0.85rem;
+      display: inline-block;
+      font-size: 0.8rem;
       font-weight: bold;
       color: #007bff;
       background: #ebf8ff;
       padding: 2px 10px;
       border-radius: 12px;
+      margin-bottom: 4px;
     }
-    .lesson-card-title {
+    .lesson-name {
       font-size: 1.05rem;
       font-weight: bold;
       color: #1e293b;
-      margin-bottom: 6px;
+      text-decoration: none;
+      display: block;
     }
-    .lesson-card-desc {
+    .lesson-name:hover { color: #007bff; }
+
+    /* ①②③ ダイレクトジャンプボタン群 */
+    .step-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .step-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 8px;
       font-size: 0.85rem;
-      color: #64748b;
-      line-height: 1.5;
+      font-weight: bold;
+      text-decoration: none;
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      transition: 0.15s;
+    }
+    .step-btn:hover {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+    /* 完了時のスタイル（緑） */
+    .step-btn.done {
+      background: #dcfce7;
+      color: #15803d;
+      border-color: #86efac;
+    }
+    /* クイズ一部不正解ありのスタイル（黄/赤） */
+    .step-btn.partial {
+      background: #fef3c7;
+      color: #b45309;
+      border-color: #fcd34d;
     }
   </style>
 </head>
 <body>
 
-  <!-- 🌐 固定上部ナビゲーション -->
   <nav class="global-nav">
     <button class="menu-toggle btn-subject-toggle" onclick="toggleSubjectSidebar()">📚 他科目へ</button>
-    <a href="/otamesi/index.html" class="nav-portal-title">📚理工学スタディ「リコ・スタ」</a>
+    <a href="/otamesi/index.html" class="nav-portal-title">🏠 大学院受験予備校</a>
     <button class="menu-toggle" onclick="toggleLessonSidebar()">☰ 講義一覧</button>
   </nav>
 
   <div class="overlay" id="overlay" onclick="closeAllSidebars()"></div>
-
-  <!-- 👈 左側スライド：全科目共通メニュー -->
   <aside class="sidebar sidebar-left" id="subjectSidebar"></aside>
-
-  <!-- 👉 右側スライド：解析学Ⅰ共通メニュー -->
   <aside class="sidebar sidebar-right" id="lessonSidebar"></aside>
 
   <div class="container">
-    <div class="subject-header">
-      <h1 class="subject-title">📘 解析学Ⅰ</h1>
-      <p class="subject-desc">解析学Ⅰは、大学初年度に学習することを想定した講義です。<br>主に1変数関数の極限、微分法、積分法について学習します。<br>詳しくは、第1講の講義動画の冒頭に説明があります。</p>
+    <!-- 学習進捗ダッシュボード -->
+    <div class="progress-box">
+      <div class="progress-header">
+        <h1 class="progress-title">📘 解析学Ⅰ</h1>
+        <span class="progress-stats" id="overallStats">進捗率: 0%（0 / 45 ステップ完了）</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="overallBar"></div>
+      </div>
     </div>
 
-    <!-- 講義カード一覧（第1講〜第15講） -->
-    <main class="lesson-grid">
-      <a href="lesson01.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第1講</span>
-          </div>
-          <div class="lesson-card-title">導入、極限、挟み撃ちの原理</div>
-          <div class="lesson-card-desc">高校で習った極限の定義をさらに厳密にしていきます。</div>
-        </div>
-      </a>
-
-      <a href="lesson02.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第2講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">連続関数、逆関数、逆三角関数</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson03.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第3講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">微分、対数微分法</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson04.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第4講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">逆関数・逆三角関数の微分</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson05.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第5講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">平均値の定理</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson06.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第6講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">ライプニッツの公式</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson07.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第7講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">テイラー・マクローリンの定理①</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson08.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第8講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">テイラー・マクローリンの定理②</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson09.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第9講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">ロピタルの定理、マクローリン展開</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson10.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第10講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">積分</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson11.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第11講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">有理式・根号を含む式の積分</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson12.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第12講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">広義積分</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson13.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第13講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">ガンマ関数、ベータ関数</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson14.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第14講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">曲線の長さ、区分求積法</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-
-      <a href="lesson15.html" class="lesson-card">
-        <div>
-          <div class="lesson-card-head">
-            <span class="lesson-num">第15講</span>
-            <span class="badge-prep">準備中</span>
-          </div>
-          <div class="lesson-card-title">期末試験対策</div>
-          <div class="lesson-card-desc">順次公開予定です。</div>
-        </div>
-      </a>
-    </main>
+    <!-- JavaScriptで全15講のリストと①②③ダイレクトリンクを自動生成 -->
+    <main class="lesson-list" id="lessonListContainer"></main>
   </div>
 
   <script>
-    // 🌐 1. 全科目共通の左サイドバーを読み込み
-    fetch('/otamesi/sidebar-left.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('subjectSidebar').innerHTML = data;
-        highlightCurrentSubject();
-      })
-      .catch(error => console.error('左サイドバーの読み込みに失敗しました:', error));
+    const STORAGE_KEY = 'edu_progress_kaiseki1';
 
-    // 📖 2. 科目専用の右サイドバー（sidebar-lesson.html）を読み込み
-    fetch('sidebar-lesson.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('lessonSidebar').innerHTML = data;
-        highlightCurrentLesson();
-      })
-      .catch(error => console.error('右サイドバーの読み込みに失敗しました:', error));
+    // 講義データ一覧（ここを編集するだけで15講分のリンクと進捗表示が自動生成されます）
+    const LESSONS = [
+      { id: 'lesson01', num: '第1講', title: '導入、極限、挟み撃ちの原理', file: 'lesson01.html', quizTotal: 2 },
+      { id: 'lesson02', num: '第2講', title: '微分法の基本概念', file: 'lesson02.html', quizTotal: 2 },
+      { id: 'lesson03', num: '第3講', title: 'テーラー展開と近似', file: 'lesson03.html', quizTotal: 2 },
+      { id: 'lesson04', num: '第4講', title: '偏微分と全微分', file: 'lesson04.html', quizTotal: 2 },
+      { id: 'lesson05', num: '第5講', title: '重積分とその応用', file: 'lesson05.html', quizTotal: 2 },
+      { id: 'lesson06', num: '第6講', title: '無限級数の収束・発散', file: 'lesson06.html', quizTotal: 2 },
+      { id: 'lesson07', num: '第7講', title: 'フーリエ級数展開', file: 'lesson07.html', quizTotal: 2 },
+      { id: 'lesson08', num: '第8講', title: '微分方程式の基礎', file: 'lesson08.html', quizTotal: 2 },
+      { id: 'lesson09', num: '第9講', title: '線形微分方程式', file: 'lesson09.html', quizTotal: 2 },
+      { id: 'lesson10', num: '第10講', title: 'ラプラス変換の基礎', file: 'lesson10.html', quizTotal: 2 },
+      { id: 'lesson11', num: '第11講', title: 'ベクトル解析：勾配と発散', file: 'lesson11.html', quizTotal: 2 },
+      { id: 'lesson12', num: '第12講', title: 'ベクトル解析：回転と線積分', file: 'lesson12.html', quizTotal: 2 },
+      { id: 'lesson13', num: '第13講', title: 'グリーンの定理・ガウスの定理', file: 'lesson13.html', quizTotal: 2 },
+      { id: 'lesson14', num: '第14講', title: '複素関数の微分可能性', file: 'lesson14.html', quizTotal: 2 },
+      { id: 'lesson15', num: '第15講', title: '総合演習と過去問解説', file: 'lesson15.html', quizTotal: 2 }
+    ];
 
-    // 👈 左サイドバー：現在開いている「科目」を判定してハイライト
-    function highlightCurrentSubject() {
-      const currentPath = window.location.pathname;
-      const links = document.querySelectorAll('#subjectSidebar a');
-      links.forEach(link => {
-        const href = link.getAttribute('href');
-        // 現在のURLに '/kaiseki1/' が含まれており、かつリンク先が 'kaiseki1' を指している場合ハイライト
-        if (href && href !== '#' && currentPath.includes('/kaiseki1/')) {
-          if (href.includes('kaiseki1')) {
-            link.classList.add('active');
+    function renderDashboard() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const progressData = raw ? JSON.parse(raw) : {};
+      const container = document.getElementById('lessonListContainer');
+      container.innerHTML = '';
+
+      let completedSteps = 0;
+      const totalSteps = LESSONS.length * 3; // 各講 3ステップ（①講義・②演習・③理解度チェック）
+
+      LESSONS.forEach(lesson => {
+        const state = progressData[lesson.id] || { lecture: false, exercise: false, quiz: {} };
+
+        // ① 講義動画ステータス
+        if (state.lecture) completedSteps++;
+        const lecClass = state.lecture ? 'step-btn done' : 'step-btn';
+        const lecMark = state.lecture ? '✓' : '▶';
+
+        // ② 演習解説ステータス
+        if (state.exercise) completedSteps++;
+        const exClass = state.exercise ? 'step-btn done' : 'step-btn';
+        const exMark = state.exercise ? '✓' : '▶';
+
+        // ③ 理解度チェックステータス（正解・不正解の集計）
+        const quizResults = Object.values(state.quiz || {});
+        const correctCount = quizResults.filter(v => v === 'correct').length;
+        const answeredCount = quizResults.length;
+
+        let quizClass = 'step-btn';
+        let quizLabel = '③ 理解度チェック';
+        if (answeredCount > 0) {
+          quizLabel = `③ チェック (${correctCount}/${lesson.quizTotal}正解)`;
+          if (correctCount === lesson.quizTotal) {
+            quizClass = 'step-btn done';
+            completedSteps++;
+          } else {
+            quizClass = 'step-btn partial';
           }
         }
+
+        const row = document.createElement('div');
+        row.className = 'lesson-row';
+        row.innerHTML = `
+          <div class="lesson-info">
+            <span class="lesson-num">${lesson.num}</span>
+            <a href="${lesson.file}" class="lesson-name">${lesson.title}</a>
+          </div>
+          <div class="step-links">
+            <a href="${lesson.file}#lecture" class="${lecClass}">${lecMark} ① 講義動画</a>
+            <a href="${lesson.file}#exercise" class="${exClass}">${exMark} ② 演習解説</a>
+            <a href="${lesson.file}#quiz" class="${quizClass}">${quizLabel}</a>
+          </div>
+        `;
+        container.appendChild(row);
       });
+
+      // 全体進捗率の更新
+      const percent = Math.round((completedSteps / totalSteps) * 100);
+      document.getElementById('overallStats').textContent = `進捗率: ${percent}%（${completedSteps} / ${totalSteps} ステップ完了）`;
+      document.getElementById('overallBar').style.width = percent + '%';
     }
 
-    // 👉 右サイドバー：現在閲覧中の講義リンクを判定
-    function highlightCurrentLesson() {
-      const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-      const links = document.querySelectorAll('#lessonSidebar a');
-      links.forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
-          link.classList.add('active');
-        }
-      });
-    }
+    window.addEventListener('DOMContentLoaded', renderDashboard);
 
-    function toggleSubjectSidebar() {
-      closeAllSidebars();
-      document.getElementById('subjectSidebar').classList.add('open');
-      document.getElementById('overlay').classList.add('open');
-    }
-    function toggleLessonSidebar() {
-      closeAllSidebars();
-      document.getElementById('lessonSidebar').classList.add('open');
-      document.getElementById('overlay').classList.add('open');
-    }
-    function closeAllSidebars() {
-      document.getElementById('subjectSidebar').classList.remove('open');
-      document.getElementById('lessonSidebar').classList.remove('open');
-      document.getElementById('overlay').classList.remove('open');
-    }
+    // サイドバー読み込み
+    fetch('/otamesi/sidebar-left.html').then(r => r.text()).then(d => {
+      document.getElementById('subjectSidebar').innerHTML = d;
+      document.querySelectorAll('#subjectSidebar a').forEach(a => {
+        if (a.getAttribute('href')?.includes('kaiseki1')) a.classList.add('active');
+      });
+    });
+    fetch('sidebar-lesson.html').then(r => r.text()).then(d => {
+      document.getElementById('lessonSidebar').innerHTML = d;
+      document.querySelectorAll('#lessonSidebar a').forEach(a => {
+        if (a.getAttribute('href') === 'index.html') a.classList.add('active');
+      });
+    });
+
+    function toggleSubjectSidebar() { closeAllSidebars(); document.getElementById('subjectSidebar').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+    function toggleLessonSidebar() { closeAllSidebars(); document.getElementById('lessonSidebar').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+    function closeAllSidebars() { document.getElementById('subjectSidebar').classList.remove('open'); document.getElementById('lessonSidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
   </script>
-
 </body>
 </html>
