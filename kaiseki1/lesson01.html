@@ -352,6 +352,92 @@
     }
     .quiz-result.correct { display: block; background: #dcfce7; color: #166534; }
     .quiz-result.incorrect { display: block; background: #fee2e2; color: #991b1b; }
+
+    /* 📄 PDF資料セクション */
+    .pdf-section {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px dashed #cbd5e1;
+    }
+    .pdf-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pdf-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-pdf-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.15s;
+    }
+    .btn-pdf-download:hover {
+      background: #e2e8f0;
+      color: #007bff;
+      border-color: #93c5fd;
+    }
+    .pdf-viewer {
+      width: 100%;
+      height: 550px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+    }
+    @media (max-width: 600px) {
+      .pdf-viewer {
+        height: 380px; /* スマホ画面での高さ調整 */
+      }
+    }
+
+    .quiz-option {
+      text-align: left;
+      padding: 12px 16px;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      cursor: pointer;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      transition: all 0.15s;
+    }
+    .quiz-option:hover {
+      background: #eff6ff;
+      border-color: #93c5fd;
+    }
+
+    /* ⭕ 正解を選んだ時のボタンスタイル（緑） */
+    .quiz-option.selected-correct {
+      background: #dcfce7 !important;
+      border-color: #10b981 !important;
+      color: #166534 !important;
+      font-weight: bold;
+    }
+
+    /* ❌ 不正解を選んだ時のボタンスタイル（赤） */
+    .quiz-option.selected-incorrect {
+      background: #fee2e2 !important;
+      border-color: #ef4444 !important;
+      color: #991b1b !important;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -388,23 +474,47 @@
       </button>
     </div>
 
-    <!-- ① 講義動画パネル -->
+   <!-- ① 講義動画パネル（動画 ＋ 講義PDF資料） -->
     <section class="step-panel active" id="panel-lecture">
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/" allowfullscreen></iframe>
       </div>
-      <div class="complete-bar">
+
+      <!-- 📄 講義用PDF資料枠 -->
+      <div class="pdf-section">
+        <div class="pdf-header">
+          <div class="pdf-title">📄 第1講 講義スライド・板書資料（PDF）</div>
+          <a href="pdf/lesson01.pdf" target="_blank" rel="noopener" class="btn-pdf-download">
+            ↗ 別タブで開く / ダウンロード
+          </a>
+        </div>
+        <iframe src="pdf/lesson01_lecture.pdf" class="pdf-viewer" title="第1講 講義資料PDF"></iframe>
+      </div>
+
+      <div class="complete-bar" style="margin-top: 20px;">
         <button class="btn-complete" id="btn-done-lecture" onclick="toggleVideoDone('lecture')">✓ 講義動画を完了にする</button>
         <button class="btn-next" onclick="switchStep('exercise')">② 演習解説動画へ進む →</button>
       </div>
     </section>
 
-    <!-- ② 演習解説動画パネル -->
+    <!-- ② 演習解説動画パネル（動画 ＋ 演習問題・解答PDF資料） -->
     <section class="step-panel" id="panel-exercise">
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/" allowfullscreen></iframe>
       </div>
-      <div class="complete-bar">
+
+      <!-- 📄 演習用PDF資料枠 -->
+      <div class="pdf-section">
+        <div class="pdf-header">
+          <div class="pdf-title">📝 第1講 演習問題・解答解説（PDF）</div>
+          <a href="pdf/lesson01.pdf" target="_blank" rel="noopener" class="btn-pdf-download">
+            ↗ 別タブで開く / ダウンロード
+          </a>
+        </div>
+        <iframe src="pdf/lesson01_exercise.pdf" class="pdf-viewer" title="第1講 演習資料PDF"></iframe>
+      </div>
+
+      <div class="complete-bar" style="margin-top: 20px;">
         <button class="btn-complete" id="btn-done-exercise" onclick="toggleVideoDone('exercise')">✓ 演習解説を完了にする</button>
         <button class="btn-next" onclick="switchStep('quiz')">③ 理解度チェックへ進む →</button>
       </div>
@@ -472,6 +582,7 @@
       renderProgressUI();
     }
 
+// 画面上のバッジ・完了ボタン・クイズ履歴を復元
     function renderProgressUI() {
       const data = getProgressData()[LESSON_ID];
 
@@ -505,21 +616,36 @@
         btnEx.classList.remove('completed');
       }
 
-      // ③ クイズ結果の復元
+      // ③ クイズ結果とボタン色の復元
       const quizItems = document.querySelectorAll('.quiz-item');
       let correctCount = 0;
+
       quizItems.forEach(item => {
         const qid = item.getAttribute('data-qid');
-        const status = data.quiz[qid];
+        const record = data.quiz[qid];
         const resBox = document.getElementById('result-' + qid);
         const expHTML = document.getElementById('exp-' + qid)?.innerHTML || '';
+        const optionBtns = item.querySelectorAll('.quiz-option');
+
+        // 一旦すべてのボタンの色クラスをリセット
+        optionBtns.forEach(btn => btn.classList.remove('selected-correct', 'selected-incorrect'));
+
+        // データ形式の互換性対応（古い文字列形式と新しいオブジェクト形式の両方に対応）
+        const status = typeof record === 'object' ? record.status : record;
+        const selectedIndex = typeof record === 'object' ? record.selected : null;
 
         if (status === 'correct') {
           correctCount++;
-          resBox.innerHTML = '<strong>⭕ 前回の結果：正解！</strong><br>' + expHTML;
+          if (selectedIndex !== null && optionBtns[selectedIndex]) {
+            optionBtns[selectedIndex].classList.add('selected-correct');
+          }
+          resBox.innerHTML = '<strong>⭕ 正解！</strong><br>' + expHTML;
           resBox.className = 'quiz-result correct';
         } else if (status === 'incorrect') {
-          resBox.innerHTML = '<strong>❌ 前回の結果：不正解（再挑戦できます）</strong><br>' + expHTML;
+          if (selectedIndex !== null && optionBtns[selectedIndex]) {
+            optionBtns[selectedIndex].classList.add('selected-incorrect');
+          }
+          resBox.innerHTML = '<strong>❌ 不正解…（別の選択肢で再挑戦できます）</strong><br>' + expHTML;
           resBox.className = 'quiz-result incorrect';
         }
       });
@@ -531,15 +657,23 @@
         else badgeQuiz.classList.remove('done');
       }
 
-      // MathJaxの再レンダリング（表示された解説文の数式を変換）
       if (window.MathJax && window.MathJax.typesetPromise) {
         window.MathJax.typesetPromise();
       }
     }
 
-    function toggleVideoDone(type) {
+    // クイズ回答時の処理（選択したボタン番号と正誤をlocalStorageに保存）
+    function answerQuiz(qid, selectedIndex, correctIndex) {
       const data = getProgressData();
-      data[LESSON_ID][type] = !data[LESSON_ID][type];
+      const isCorrect = (selectedIndex === correctIndex);
+
+      // 正誤と選択したボタン番号の両方を保存
+      data[LESSON_ID].quiz[qid] = {
+        status: isCorrect ? 'correct' : 'incorrect',
+        selected: selectedIndex
+      };
+
+      // saveProgressData内でrenderProgressUIが呼ばれ、ボタンの色と解説が即時反映される
       saveProgressData(data);
     }
 
