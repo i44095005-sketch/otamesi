@@ -30,8 +30,7 @@
       padding-top: 60px;
     }
 
-    /* 上部ナビ & サイドバー（既存共通） */
-/* 🌐 グローバルナビ（上部固定ヘッダー） */
+    /* 🌐 グローバルナビ（上部固定ヘッダー） */
     .global-nav {
       position: fixed;
       top: 0;
@@ -78,7 +77,7 @@
       background: #718096;
     }
     
-    /* 共通サイドバー設定（元のデザイン復元） */
+    /* 共通サイドバー設定（元のデザイン完全復元） */
     .sidebar {
       position: fixed;
       top: 0;
@@ -272,87 +271,6 @@
       position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
     }
 
-    /* 完了ボタン */
-    .complete-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 16px;
-      border-top: 1px solid #e2e8f0;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .btn-complete {
-      background: #10b981;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-    .btn-complete.completed {
-      background: #e2e8f0;
-      color: #475569;
-    }
-    .btn-next {
-      background: #007bff;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      font-size: 0.95rem;
-    }
-
-    /* ③ 理解度チェック（クイズ） */
-    .quiz-item {
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    .quiz-q {
-      font-weight: bold;
-      font-size: 1.05rem;
-      margin-bottom: 14px;
-      color: #1e293b;
-      line-height: 1.8; /* 分数などの上下余白を確保 */
-    }
-    .quiz-options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .quiz-option {
-      text-align: left;
-      padding: 12px 16px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      background: #f8fafc;
-      cursor: pointer;
-      font-size: 0.98rem;
-      line-height: 1.7;
-      transition: 0.15s;
-    }
-    .quiz-option:hover {
-      background: #eff6ff;
-      border-color: #93c5fd;
-    }
-    .quiz-result {
-      margin-top: 14px;
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      line-height: 1.7;
-      display: none;
-    }
-    .quiz-result.correct { display: block; background: #dcfce7; color: #166534; }
-    .quiz-result.incorrect { display: block; background: #fee2e2; color: #991b1b; }
-
     /* 📄 PDF資料セクション */
     .pdf-section {
       margin-top: 24px;
@@ -402,30 +320,85 @@
       background: #f8fafc;
     }
     @media (max-width: 600px) {
-      .pdf-viewer {
-        height: 380px; /* スマホ画面での高さ調整 */
-      }
+      .pdf-viewer { height: 380px; }
     }
 
+    /* 完了ボタン */
+    .complete-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      margin-top: 20px;
+      border-top: 1px solid #e2e8f0;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn-complete {
+      background: #10b981;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .btn-complete.completed {
+      background: #e2e8f0;
+      color: #475569;
+    }
+    .btn-next {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    /* ③ 理解度チェック（クイズ） */
+    .quiz-item {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .quiz-q {
+      font-weight: bold;
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+      color: #1e293b;
+      line-height: 1.8;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
     .quiz-option {
       text-align: left;
       padding: 12px 16px;
       border: 2px solid #cbd5e1;
       border-radius: 8px;
-      background: #f8fafc;
+      background-color: #f8fafc;
+      color: #1e293b;
       cursor: pointer;
       font-size: 0.98rem;
       line-height: 1.7;
       transition: all 0.15s;
     }
     .quiz-option:hover {
-      background: #eff6ff;
+      background-color: #eff6ff;
       border-color: #93c5fd;
     }
 
     /* ⭕ 正解を選んだ時のボタンスタイル（緑） */
     .quiz-option.selected-correct {
-      background: #dcfce7 !important;
+      background-color: #dcfce7 !important;
       border-color: #10b981 !important;
       color: #166534 !important;
       font-weight: bold;
@@ -433,11 +406,22 @@
 
     /* ❌ 不正解を選んだ時のボタンスタイル（赤） */
     .quiz-option.selected-incorrect {
-      background: #fee2e2 !important;
+      background-color: #fee2e2 !important;
       border-color: #ef4444 !important;
       color: #991b1b !important;
       font-weight: bold;
     }
+
+    .quiz-result {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      display: none;
+    }
+    .quiz-result.correct { display: block; background: #dcfce7; color: #166534; }
+    .quiz-result.incorrect { display: block; background: #fee2e2; color: #991b1b; }
   </style>
 </head>
 <body>
@@ -474,82 +458,79 @@
       </button>
     </div>
 
-   <!-- ① 講義動画パネル（動画 ＋ 講義PDF資料） -->
+    <!-- ① 講義動画パネル（動画 ＋ 講義PDF資料） -->
     <section class="step-panel active" id="panel-lecture">
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
       </div>
 
-      <!-- 📄 講義用PDF資料枠 -->
       <div class="pdf-section">
         <div class="pdf-header">
           <div class="pdf-title">📄 第1講 講義スライド・板書資料（PDF）</div>
-          <a href="kaiseki1-01.pdf" target="_blank" rel="noopener" class="btn-pdf-download">
+          <a href="pdf/lesson01_lecture.pdf" target="_blank" rel="noopener" class="btn-pdf-download">
             ↗ 別タブで開く / ダウンロード
           </a>
         </div>
-        <iframe src="kaiseki1-01.pdf" class="pdf-viewer" title="第1講 講義資料PDF"></iframe>
+        <iframe src="pdf/lesson01_lecture.pdf" class="pdf-viewer" title="第1講 講義資料PDF"></iframe>
       </div>
 
-      <div class="complete-bar" style="margin-top: 20px;">
+      <div class="complete-bar">
         <button class="btn-complete" id="btn-done-lecture" onclick="toggleVideoDone('lecture')">✓ 講義動画を完了にする</button>
         <button class="btn-next" onclick="switchStep('exercise')">② 演習解説動画へ進む →</button>
       </div>
     </section>
 
-    <!-- ② 演習解説動画パネル（動画 ＋ 演習問題・解答PDF資料） -->
+    <!-- ② 演習解説動画パネル（動画 ＋ 演習PDF資料） -->
     <section class="step-panel" id="panel-exercise">
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
       </div>
 
-      <!-- 📄 演習用PDF資料枠 -->
       <div class="pdf-section">
         <div class="pdf-header">
           <div class="pdf-title">📝 第1講 演習問題・解答解説（PDF）</div>
-          <a href="kaiseki1-01.pdf" target="_blank" rel="noopener" class="btn-pdf-download">
+          <a href="pdf/lesson01_exercise.pdf" target="_blank" rel="noopener" class="btn-pdf-download">
             ↗ 別タブで開く / ダウンロード
           </a>
         </div>
-        <iframe src="kaiseki1-01.pdf" class="pdf-viewer" title="第1講 演習資料PDF"></iframe>
+        <iframe src="pdf/lesson01_exercise.pdf" class="pdf-viewer" title="第1講 演習資料PDF"></iframe>
       </div>
 
-      <div class="complete-bar" style="margin-top: 20px;">
+      <div class="complete-bar">
         <button class="btn-complete" id="btn-done-exercise" onclick="toggleVideoDone('exercise')">✓ 演習解説を完了にする</button>
         <button class="btn-next" onclick="switchStep('quiz')">③ 理解度チェックへ進む →</button>
       </div>
     </section>
 
-    <!-- ③ 理解度チェックパネル（LaTeX数式対応） -->
+    <!-- ③ 理解度チェックパネル -->
     <section class="step-panel" id="panel-quiz">
-      <!-- 問題1（極限と分数） -->
-      <div class="quiz-item" data-qid="q1" data-answer="1">
+      <!-- 問題1 -->
+      <div class="quiz-item" data-qid="q1">
         <div class="quiz-q">
           Q1. 次の極限値を求めよ。
           $$\lim_{x \to 0} \frac{\sin x}{x}$$
         </div>
         <div class="quiz-options">
-          <button class="quiz-option" onclick="answerQuiz('q1', 0, 1)">$0$</button>
-          <button class="quiz-option" onclick="answerQuiz('q1', 1, 1)">$1$</button>
-          <button class="quiz-option" onclick="answerQuiz('q1', 2, 1)">$\infty$（発散する）</button>
+          <button type="button" class="quiz-option" onclick="answerQuiz('q1', 0, 1)">$0$</button>
+          <button type="button" class="quiz-option" onclick="answerQuiz('q1', 1, 1)">$1$</button>
+          <button type="button" class="quiz-option" onclick="answerQuiz('q1', 2, 1)">$\infty$（発散する）</button>
         </div>
-        <!-- 解説テキストをHTML内にhiddenで保持（バックスラッシュのエスケープ崩れを防ぐため） -->
         <div class="quiz-explanation" id="exp-q1" style="display:none;">
-          解説：$0 &lt; x &lt; \frac{\pi}{2}$ において $\sin x &lt; x &lt; \tan x$ が成り立つため、挟み撃ちの原理より $\lim_{x \to 0} \frac{\sin x}{x} = 1$ に収束します。
+          解説：$0 \lt x \lt \frac{\pi}{2}$ において $\sin x \lt x \lt \tan x$ が成り立つため、挟み撃ちの原理より $\lim_{x \to 0} \frac{\sin x}{x} = 1$ に収束します。
         </div>
         <div class="quiz-result" id="result-q1"></div>
       </div>
 
-      <!-- 問題2（積分の例） -->
-      <div class="quiz-item" data-qid="q2" data-answer="2">
+      <!-- 問題2 -->
+      <div class="quiz-item" data-qid="q2">
         <div class="quiz-q">
           Q2. 次の広義積分の値として正しいものはどれか。
           $$\int_{1}^{\infty} \frac{1}{x^2} \, dx$$
         </div>
         <div class="quiz-options">
-          <button class="quiz-option" onclick="answerQuiz('q2', 0, 2)">$0$</button>
-          <button class="quiz-option" onclick="answerQuiz('q2', 1, 2)">$\frac{1}{2}$</button>
-          <button class="quiz-option" onclick="answerQuiz('q2', 2, 2)">$1$</button>
+          <button type="button" class="quiz-option" onclick="answerQuiz('q2', 0, 2)">$0$</button>
+          <button type="button" class="quiz-option" onclick="answerQuiz('q2', 1, 2)">$\frac{1}{2}$</button>
+          <button type="button" class="quiz-option" onclick="answerQuiz('q2', 2, 2)">$1$</button>
         </div>
         <div class="quiz-explanation" id="exp-q2" style="display:none;">
           解説：$\lim_{b \to \infty} \left[ -\frac{1}{x} \right]_{1}^{b} = \lim_{b \to \infty} \left( -\frac{1}{b} + 1 \right) = 1$ となります。
@@ -568,28 +549,37 @@
     const LESSON_ID = 'lesson01';
     const STORAGE_KEY = 'edu_progress_kaiseki1';
 
+    // localStorageからデータ取得（破損データ防止付き）
     function getProgressData() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      const data = raw ? JSON.parse(raw) : {};
-      if (!data[LESSON_ID]) {
-        data[LESSON_ID] = { lecture: false, exercise: false, quiz: {} };
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const data = raw ? JSON.parse(raw) : {};
+        if (!data[LESSON_ID]) {
+          data[LESSON_ID] = { lecture: false, exercise: false, quiz: {} };
+        }
+        if (!data[LESSON_ID].quiz) {
+          data[LESSON_ID].quiz = {};
+        }
+        return data;
+      } catch (e) {
+        return { [LESSON_ID]: { lecture: false, exercise: false, quiz: {} } };
       }
-      return data;
     }
 
+    // 保存してUI更新
     function saveProgressData(data) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       renderProgressUI();
     }
 
-// 画面上のバッジ・完了ボタン・クイズ履歴を復元
+    // UI全体の描画・復元
     function renderProgressUI() {
-      const data = getProgressData()[LESSON_ID];
+      const lessonData = getProgressData()[LESSON_ID];
 
       // ① 講義動画
       const badgeLec = document.getElementById('badge-lecture');
       const btnLec = document.getElementById('btn-done-lecture');
-      if (data.lecture) {
+      if (lessonData.lecture) {
         badgeLec.textContent = '視聴済';
         badgeLec.classList.add('done');
         btnLec.textContent = '✓ 視聴完了済み（クリックで解除）';
@@ -604,7 +594,7 @@
       // ② 演習解説
       const badgeEx = document.getElementById('badge-exercise');
       const btnEx = document.getElementById('btn-done-exercise');
-      if (data.exercise) {
+      if (lessonData.exercise) {
         badgeEx.textContent = '視聴済';
         badgeEx.classList.add('done');
         btnEx.textContent = '✓ 視聴完了済み（クリックで解除）';
@@ -616,33 +606,37 @@
         btnEx.classList.remove('completed');
       }
 
-      // ③ クイズ結果とボタン色の復元
+      // ③ クイズのボタン色と解説文の復元
       const quizItems = document.querySelectorAll('.quiz-item');
       let correctCount = 0;
 
       quizItems.forEach(item => {
         const qid = item.getAttribute('data-qid');
-        const record = data.quiz[qid];
+        const record = lessonData.quiz[qid];
         const resBox = document.getElementById('result-' + qid);
         const expHTML = document.getElementById('exp-' + qid)?.innerHTML || '';
         const optionBtns = item.querySelectorAll('.quiz-option');
 
-        // 一旦すべてのボタンの色クラスをリセット
-        optionBtns.forEach(btn => btn.classList.remove('selected-correct', 'selected-incorrect'));
+        // ボタンの色クラスを一旦クリア
+        optionBtns.forEach(btn => {
+          btn.classList.remove('selected-correct', 'selected-incorrect');
+        });
 
-        // データ形式の互換性対応（古い文字列形式と新しいオブジェクト形式の両方に対応）
-        const status = typeof record === 'object' ? record.status : record;
-        const selectedIndex = typeof record === 'object' ? record.selected : null;
+        if (!record) return;
+
+        // 古い形式（文字列）と新しい形式（オブジェクト）の両方を安全に読み取り
+        const status = (typeof record === 'object' && record !== null) ? record.status : record;
+        const selectedIndex = (typeof record === 'object' && record !== null) ? Number(record.selected) : -1;
 
         if (status === 'correct') {
           correctCount++;
-          if (selectedIndex !== null && optionBtns[selectedIndex]) {
+          if (selectedIndex >= 0 && optionBtns[selectedIndex]) {
             optionBtns[selectedIndex].classList.add('selected-correct');
           }
           resBox.innerHTML = '<strong>⭕ 正解！</strong><br>' + expHTML;
           resBox.className = 'quiz-result correct';
         } else if (status === 'incorrect') {
-          if (selectedIndex !== null && optionBtns[selectedIndex]) {
+          if (selectedIndex >= 0 && optionBtns[selectedIndex]) {
             optionBtns[selectedIndex].classList.add('selected-incorrect');
           }
           resBox.innerHTML = '<strong>❌ 不正解…（別の選択肢で再挑戦できます）</strong><br>' + expHTML;
@@ -651,65 +645,53 @@
       });
 
       const badgeQuiz = document.getElementById('badge-quiz');
-      if (Object.keys(data.quiz).length > 0) {
+      if (Object.keys(lessonData.quiz).length > 0) {
         badgeQuiz.textContent = `${correctCount} / ${quizItems.length} 正解`;
-        if (correctCount === quizItems.length) badgeQuiz.classList.add('done');
-        else badgeQuiz.classList.remove('done');
+        if (correctCount === quizItems.length) {
+          badgeQuiz.classList.add('done');
+        } else {
+          badgeQuiz.classList.remove('done');
+        }
       }
 
+      // MathJaxの再レンダリング
       if (window.MathJax && window.MathJax.typesetPromise) {
         window.MathJax.typesetPromise();
       }
     }
 
-    // クイズ回答時の処理（選択したボタン番号と正誤をlocalStorageに保存）
+    // 動画完了トグル
+    function toggleVideoDone(type) {
+      const data = getProgressData();
+      data[LESSON_ID][type] = !data[LESSON_ID][type];
+      saveProgressData(data);
+    }
+
+    // クイズ回答ボタンクリック時
     function answerQuiz(qid, selectedIndex, correctIndex) {
       const data = getProgressData();
-      const isCorrect = (selectedIndex === correctIndex);
+      const isCorrect = (Number(selectedIndex) === Number(correctIndex));
 
-      // 正誤と選択したボタン番号の両方を保存
       data[LESSON_ID].quiz[qid] = {
         status: isCorrect ? 'correct' : 'incorrect',
-        selected: selectedIndex
+        selected: Number(selectedIndex)
       };
 
-      // saveProgressData内でrenderProgressUIが呼ばれ、ボタンの色と解説が即時反映される
       saveProgressData(data);
     }
 
-    // クイズ回答時の処理
-    function answerQuiz(qid, selectedIndex, correctIndex) {
-      const data = getProgressData();
-      const isCorrect = (selectedIndex === correctIndex);
-      data[LESSON_ID].quiz[qid] = isCorrect ? 'correct' : 'incorrect';
-      saveProgressData(data);
-
-      const resBox = document.getElementById('result-' + qid);
-      const expHTML = document.getElementById('exp-' + qid)?.innerHTML || '';
-
-      if (isCorrect) {
-        resBox.innerHTML = '<strong>⭕ 正解！</strong><br>' + expHTML;
-        resBox.className = 'quiz-result correct';
-      } else {
-        resBox.innerHTML = '<strong>❌ 不正解…</strong><br>' + expHTML;
-        resBox.className = 'quiz-result incorrect';
-      }
-
-      // 解説エリア内の数式をMathJaxで即時変換
-      if (window.MathJax && window.MathJax.typesetPromise) {
-        window.MathJax.typesetPromise([resBox]);
-      }
-    }
-
+    // タブ切替
     function switchStep(stepName) {
       document.querySelectorAll('.step-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
 
-      document.querySelector(`.step-tab[data-step="${stepName}"]`).classList.add('active');
-      document.getElementById('panel-' + stepName).classList.add('active');
+      const targetTab = document.querySelector(`.step-tab[data-step="${stepName}"]`);
+      const targetPanel = document.getElementById('panel-' + stepName);
+      if (targetTab) targetTab.classList.add('active');
+      if (targetPanel) targetPanel.classList.add('active');
+
       history.replaceState(null, null, '#' + stepName);
 
-      // 非表示だったタブを開いた際にも数式レイアウトを最適化
       if (window.MathJax && window.MathJax.typesetPromise) {
         window.MathJax.typesetPromise();
       }
@@ -732,7 +714,7 @@
     });
     fetch('sidebar-lesson.html').then(r => r.text()).then(d => {
       document.getElementById('lessonSidebar').innerHTML = d;
-      const cur = window.location.pathname.split('/').pop();
+      const cur = window.location.pathname.split('/').pop() || 'index.html';
       document.querySelectorAll('#lessonSidebar a').forEach(a => {
         if (a.getAttribute('href') === cur) a.classList.add('active');
       });
