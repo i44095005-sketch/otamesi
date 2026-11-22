@@ -215,9 +215,8 @@
 
         // ③ 理解度チェックステータス（正解・不正解の集計）
         const quizResults = Object.values(state.quiz || {});
-        const correctCount = quizResults.filter(v => v === 'correct').length;
+        const correctCount = quizResults.filter(v => (typeof v === 'object' ? v.status : v) === 'correct').length;
         const answeredCount = quizResults.length;
-
         let quizClass = 'step-btn';
         let quizLabel = '③ 理解度チェック';
         if (answeredCount > 0) {
