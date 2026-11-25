@@ -118,7 +118,7 @@
       margin-bottom: 6px !important;
     }
     
-    /* カテゴリ見出し（左の青い縦線＋グレー背景） */
+ /* カテゴリ見出し（見出し1行分だけに短い青い縦線を引く） */
     .sidebar-category-head {
       font-size: 0.82rem;
       font-weight: bold;
@@ -128,8 +128,19 @@
       border-radius: 6px;
       margin-top: 16px;
       margin-bottom: 8px;
-      display: block;
-      border-left: 3px solid #007bff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: none !important; /* 親要素全体を囲む長い線を消去 */
+    }
+    .sidebar-category-head::before {
+      content: "";
+      display: inline-block;
+      width: 3px;
+      height: 14px;
+      background-color: #007bff;
+      border-radius: 2px;
+      flex-shrink: 0;
     }
 
     .sidebar-list a {
