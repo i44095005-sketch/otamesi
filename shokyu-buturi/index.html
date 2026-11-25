@@ -107,9 +107,17 @@
     }
     .close-btn:hover { color: #4a5568; }
 
-    .sidebar-list { list-style: none; }
-    .sidebar-list li { margin-bottom: 6px; }
-
+/* 左サイドバーの横並び崩れを強制的に縦並びへ修正 */
+    .sidebar-list {
+      display: block !important;
+      list-style: none !important;
+    }
+    .sidebar-list li {
+      display: block !important;
+      width: 100% !important;
+      margin-bottom: 6px !important;
+    }
+    
     /* カテゴリ見出し（左の青い縦線＋グレー背景） */
     .sidebar-category-head {
       font-size: 0.82rem;
