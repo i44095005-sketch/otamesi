@@ -6,7 +6,11 @@
   <meta name="robots" content="noindex, nofollow">
   <title>初級物理 - 講義一覧と学習進捗</title>
   <style>
-    - { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      overflow-x: hidden; /* 画面の左右はみ出し・横スクロールを完全に禁止 */
+    }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       line-height: 1.6;
@@ -58,7 +62,7 @@
     .btn-subject-toggle:hover { background: #718096; }
 
     /* 共通サイドバー設定（元のリッチデザイン復元） */
-    .sidebar {
+.sidebar {
       position: fixed;
       top: 0;
       width: 300px;
@@ -69,12 +73,16 @@
       transition: all 0.3s ease;
       overflow-y: auto;
       padding: 20px 16px;
+      visibility: hidden; /* 閉じている時は完全に非表示にしてはみ出し防止 */
+    }
+    .sidebar.open {
+      visibility: visible; /* 開いた時だけ表示 */
     }
     .sidebar-left { left: -300px; }
     .sidebar-left.open { left: 0; }
     .sidebar-right { right: -300px; }
     .sidebar-right.open { right: 0; }
-
+    
     .sidebar-header {
       display: flex;
       justify-content: space-between;
