@@ -7,6 +7,10 @@
   <title>解析学Ⅰ - 講義一覧と学習進捗</title>
   <style>
     - { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      overflow-x: hidden; /* 画面の左右はみ出し・横スクロールを完全に禁止 */
+    }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       line-height: 1.6;
@@ -58,7 +62,7 @@
     .btn-subject-toggle:hover { background: #718096; }
 
     /* 共通サイドバー設定（元のリッチデザイン復元） */
-    .sidebar {
+.sidebar {
       position: fixed;
       top: 0;
       width: 300px;
@@ -69,12 +73,16 @@
       transition: all 0.3s ease;
       overflow-y: auto;
       padding: 20px 16px;
+      visibility: hidden; /* 閉じている時は完全に非表示にしてはみ出し防止 */
+    }
+    .sidebar.open {
+      visibility: visible; /* 開いた時だけ表示 */
     }
     .sidebar-left { left: -300px; }
     .sidebar-left.open { left: 0; }
     .sidebar-right { right: -300px; }
     .sidebar-right.open { right: 0; }
-
+    
     .sidebar-header {
       display: flex;
       justify-content: space-between;
@@ -99,10 +107,18 @@
     }
     .close-btn:hover { color: #4a5568; }
 
-    .sidebar-list { list-style: none; }
-    .sidebar-list li { margin-bottom: 6px; }
-
-    /* カテゴリ見出し（左の青い縦線＋グレー背景） */
+/* 左サイドバーの横並び崩れを強制的に縦並びへ修正 */
+    .sidebar-list {
+      display: block !important;
+      list-style: none !important;
+    }
+    .sidebar-list li {
+      display: block !important;
+      width: 100% !important;
+      margin-bottom: 6px !important;
+    }
+    
+ /* カテゴリ見出し（見出し1行分だけに短い青い縦線を引く） */
     .sidebar-category-head {
       font-size: 0.82rem;
       font-weight: bold;
@@ -115,7 +131,6 @@
       display: block;
       border-left: 3px solid #007bff;
     }
-
     .sidebar-list a {
       display: flex;
       align-items: center;
@@ -315,21 +330,21 @@
 
     // 講義データ一覧
     const LESSONS = [
-      { id: 'lesson01', num: '第1講', title: '導入、極限、挟み撃ちの原理', file: 'lesson01.html', quizTotal: 2 },
-      { id: 'lesson02', num: '第2講', title: '微分法の基本概念', file: 'lesson02.html', quizTotal: 2 },
-      { id: 'lesson03', num: '第3講', title: 'テーラー展開と近似', file: 'lesson03.html', quizTotal: 2 },
-      { id: 'lesson04', num: '第4講', title: '偏微分と全微分', file: 'lesson04.html', quizTotal: 2 },
-      { id: 'lesson05', num: '第5講', title: '重積分とその応用', file: 'lesson05.html', quizTotal: 2 },
-      { id: 'lesson06', num: '第6講', title: '無限級数の収束・発散', file: 'lesson06.html', quizTotal: 2 },
-      { id: 'lesson07', num: '第7講', title: 'フーリエ級数展開', file: 'lesson07.html', quizTotal: 2 },
-      { id: 'lesson08', num: '第8講', title: '微分方程式の基礎', file: 'lesson08.html', quizTotal: 2 },
-      { id: 'lesson09', num: '第9講', title: '線形微分方程式', file: 'lesson09.html', quizTotal: 2 },
-      { id: 'lesson10', num: '第10講', title: 'ラプラス変換の基礎', file: 'lesson10.html', quizTotal: 2 },
-      { id: 'lesson11', num: '第11講', title: 'ベクトル解析：勾配と発散', file: 'lesson11.html', quizTotal: 2 },
-      { id: 'lesson12', num: '第12講', title: 'ベクトル解析：回転と線積分', file: 'lesson12.html', quizTotal: 2 },
-      { id: 'lesson13', num: '第13講', title: 'グリーンの定理・ガウスの定理', file: 'lesson13.html', quizTotal: 2 },
-      { id: 'lesson14', num: '第14講', title: '複素関数の微分可能性', file: 'lesson14.html', quizTotal: 2 },
-      { id: 'lesson15', num: '第15講', title: '総合演習と過去問解説', file: 'lesson15.html', quizTotal: 2 }
+      { id: 'lesson01', num: '第1講', title: '速度と加速度', file: 'lesson01.html', quizTotal: 2 },
+      { id: 'lesson02', num: '第2講', title: '落体の運動', file: 'lesson02.html', quizTotal: 2 },
+      { id: 'lesson03', num: '第3講', title: '力のつり合い、運動の3法則', file: 'lesson03.html', quizTotal: 2 },
+      { id: 'lesson04', num: '第4講', title: '剛体', file: 'lesson04.html', quizTotal: 2 },
+      { id: 'lesson05', num: '第5講', title: '仕事とエネルギー', file: 'lesson05.html', quizTotal: 2 },
+      { id: 'lesson06', num: '第6講', title: '運動量保存則', file: 'lesson06.html', quizTotal: 2 },
+      { id: 'lesson07', num: '第7講', title: '万有引力、等速円運動', file: 'lesson07.html', quizTotal: 2 },
+      { id: 'lesson08', num: '第8講', title: '慣性力、単振動', file: 'lesson08.html', quizTotal: 2 },
+      { id: 'lesson09', num: '第9講', title: '力学分野のまとめ', file: 'lesson09.html', quizTotal: 2 },
+      { id: 'lesson10', num: '第10講', title: '波の性質', file: 'lesson10.html', quizTotal: 2 },
+      { id: 'lesson11', num: '第11講', title: '音の性質、ドップラー効果', file: 'lesson11.html', quizTotal: 2 },
+      { id: 'lesson12', num: '第12講', title: '光の性質、レンズ', file: 'lesson12.html', quizTotal: 2 },
+      { id: 'lesson13', num: '第13講', title: '光の干渉と回折', file: 'lesson13.html', quizTotal: 2 },
+      { id: 'lesson14', num: '第14講', title: '波動分野のまとめ', file: 'lesson14.html', quizTotal: 2 },
+      { id: 'lesson15', num: '第15講', title: '静電気力、電場と電位', file: 'lesson15.html', quizTotal: 2 }
     ];
 
     function renderDashboard() {
