@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>初級物理 - 講義一覧と学習進捗</title>
   <style>
-    - { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       width: 100%;
       overflow-x: hidden; /* 画面の左右はみ出し・横スクロールを完全に禁止 */
@@ -25,7 +25,9 @@
       position: fixed;
       top: 0;
       left: 0;
+      right: 0;
       width: 100%;
+      box-sizing: border-box;
       height: 56px;
       background-color: #1a202c;
       color: #ffffff;
@@ -36,6 +38,7 @@
       z-index: 1000;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
+    
     .nav-portal-title {
       font-weight: bold;
       font-size: 1rem;
