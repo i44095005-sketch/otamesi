@@ -128,21 +128,9 @@
       border-radius: 6px;
       margin-top: 16px;
       margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-left: none !important; /* 親要素全体を囲む長い線を消去 */
+      display: block;
+      border-left: 3px solid #007bff;
     }
-    .sidebar-category-head::before {
-      content: "";
-      display: inline-block;
-      width: 3px;
-      height: 14px;
-      background-color: #007bff;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-
     .sidebar-list a {
       display: flex;
       align-items: center;
