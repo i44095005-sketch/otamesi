@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>準備中 - 講義コンテンツ</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+      padding-top: 60px;
+      text-align: left;
+    }
+
+    /* 🌐 グローバルナビ（上部固定ヘッダー） */
+    .global-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background-color: #1a202c;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px 0 16px;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .nav-portal-title {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #ffffff;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .nav-portal-title:hover { opacity: 0.8; }
+
+    .menu-toggle {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .btn-subject-toggle { background: #4a5568; }
+    .btn-subject-toggle:hover { background: #718096; }
+
+    /* 共通サイドバー設定 */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      width: 300px;
+      height: 100%;
+      background: #ffffff;
+      box-shadow: 0 0 16px rgba(0,0,0,0.2);
+      z-index: 1001;
+      transition: all 0.3s ease;
+      overflow-y: auto;
+      padding: 20px 16px;
+      visibility: hidden;
+    }
+    .sidebar.open { visibility: visible; }
+    .sidebar-left { left: -300px; }
+    .sidebar-left.open { left: 0; }
+    .sidebar-right { right: -300px; }
+    .sidebar-right.open { right: 0; }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .sidebar-title { font-size: 1.15rem; font-weight: bold; color: #1a202c; }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #a0aec0;
+      padding: 0 8px;
+      line-height: 1;
+    }
+    .close-btn:hover { color: #4a5568; }
+
+    .sidebar-list {
+      display: block !important;
+      list-style: none !important;
+      padding-left: 0 !important;
+      margin-left: 0 !important;
+    }
+    .sidebar-list li {
+      display: block !important;
+      width: 100% !important;
+      margin-bottom: 6px !important;
+    }
+    .sidebar-category-head {
+      font-size: 0.82rem;
+      font-weight: bold;
+      color: #334155;
+      background-color: #f1f5f9;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      display: block;
+      border-left: 3px solid #007bff;
+    }
+    .sidebar-list a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: #334155;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .sidebar-list a:hover { background: #f1f5f9; color: #007bff; }
+    .sidebar-list a.active {
+      background: #ebf8ff;
+      color: #007bff;
+      font-weight: bold;
+      border: 1px solid #bae6fd;
+    }
+    .sidebar-btn-home {
+      background: #f1f5f9 !important;
+      border: 1px solid #cbd5e1 !important;
+      font-weight: bold !important;
+      color: #334155 !important;
+      margin-bottom: 12px;
+    }
+    .sidebar-btn-home:hover { background: #e2e8f0 !important; color: #007bff !important; }
+    .sidebar-list a.disabled-link { color: #94a3b8; pointer-events: none; }
+    .badge-prep {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: normal;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4); z-index: 1000; display: none;
+    }
+    .overlay.open { display: block; }
+
+    /* メインコンテナ */
+    .container { max-width: 1000px; width: 92%; margin: 0 auto; padding: 30px 0 60px; }
+
+    /* パンくずバッジ＆タイトル（講義ページと統一） */
+    .lesson-header { margin-bottom: 24px; }
+    .breadcrumb-badge {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #007bff;
+      background: #ebf8ff;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .lesson-main-title {
+      font-size: 1.7rem;
+      font-weight: bold;
+      color: #1a202c;
+    }
+
+    /* 3ステップタブ（グレーアウト状態でデザイン統一） */
+    .step-tabs-preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .step-tab-disabled {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: center;
+      color: #94a3b8;
+      user-select: none;
+    }
+    .step-tab-disabled .tab-name {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .step-tab-disabled .tab-status {
+      display: inline-block;
+      font-size: 0.75rem;
+      background: #f1f5f9;
+      color: #64748b;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-weight: bold;
+    }
+
+    /* 準備中メインカード */
+    .coming-soon-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 56px 24px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .coming-soon-icon {
+      font-size: 3.2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .coming-soon-heading {
+      font-size: 1.35rem;
+      font-weight: bold;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+    .coming-soon-desc {
+      font-size: 0.95rem;
+      color: #64748b;
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: #007bff;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.92rem;
+      padding: 10px 22px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #0056b3; }
+    .btn-secondary {
+      display: inline-block;
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.92rem;
+      padding: 10px 22px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover { background: #e2e8f0; }
+
+    @media (max-width: 640px) {
+      .step-tabs-preview { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="global-nav">
+    <button class="menu-toggle btn-subject-toggle" onclick="toggleSubjectSidebar()">📚 他科目へ</button>
+    <a href="/otamesi/index.html" class="nav-portal-title">🏠 大学院受験予備校</a>
+    <button class="menu-toggle" onclick="toggleLessonSidebar()">☰ 講義一覧</button>
+  </nav>
+
+  <div class="overlay" id="overlay" onclick="closeAllSidebars()"></div>
+  <aside class="sidebar sidebar-left" id="subjectSidebar"></aside>
+  <aside class="sidebar sidebar-right" id="lessonSidebar"></aside>
+
+  <div class="container">
+    <!-- 講義ページと同じパンくず＋タイトル構成 -->
+    <div class="lesson-header">
+      <span class="breadcrumb-badge">初級物理 / 第2講</span>
+      <h1 class="lesson-main-title">落体の運動</h1>
+    </div>
+
+    <!-- 3ステップUIの統一プレビュー -->
+    <div class="step-tabs-preview">
+      <div class="step-tab-disabled">
+        <span class="tab-name">① 講義動画</span>
+        <span class="tab-status">準備中</span>
+      </div>
+      <div class="step-tab-disabled">
+        <span class="tab-name">② 演習解説動画</span>
+        <span class="tab-status">準備中</span>
+      </div>
+      <div class="step-tab-disabled">
+        <span class="tab-name">③ 理解度チェック</span>
+        <span class="tab-status">準備中</span>
+      </div>
+    </div>
+
+    <!-- メイン案内カード -->
+    <div class="coming-soon-card">
+      <span class="coming-soon-icon">🚧</span>
+      <h2 class="coming-soon-heading">この講義コンテンツは現在準備中です</h2>
+      <p class="coming-soon-desc">
+        現在、講義動画・演習解説資料・理解度チェック問題を作成しています。<br>
+        公開まで今しばらくお待ちください。
+      </p>
+      <div class="action-buttons">
+        <a href="index.html" class="btn-primary">📋 講座トップ（講義一覧）へ戻る</a>
+        <a href="/otamesi/index.html" class="btn-secondary">🏠 ポータルトップへ</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 左サイドバー（全科目）読み込み
+    fetch('/otamesi/sidebar-left.html').then(r => r.text()).then(d => {
+      document.getElementById('subjectSidebar').innerHTML = d;
+      const curPath = window.location.pathname;
+      document.querySelectorAll('#subjectSidebar a').forEach(a => {
+        const href = a.getAttribute('href');
+        if (href && href !== '#' && curPath.includes(href.replace('index.html', ''))) {
+          a.classList.add('active');
+        }
+      });
+    });
+
+    // 右サイドバー（同フォルダの講義一覧）読み込み
+    fetch('sidebar-lesson.html').then(r => r.text()).then(d => {
+      document.getElementById('lessonSidebar').innerHTML = d;
+      const cur = window.location.pathname.split('/').pop() || 'index.html';
+      document.querySelectorAll('#lessonSidebar a').forEach(a => {
+        if (a.getAttribute('href') === cur) a.classList.add('active');
+      });
+    });
+
+    function toggleSubjectSidebar() {
+      closeAllSidebars();
+      document.getElementById('subjectSidebar').classList.add('open');
+      document.getElementById('overlay').classList.add('open');
+    }
+    function toggleLessonSidebar() {
+      closeAllSidebars();
+      document.getElementById('lessonSidebar').classList.add('open');
+      document.getElementById('overlay').classList.add('open');
+    }
+    function closeAllSidebars() {
+      document.getElementById('subjectSidebar').classList.remove('open');
+      document.getElementById('lessonSidebar').classList.remove('open');
+      document.getElementById('overlay').classList.remove('open');
+    }
+  </script>
+</body>
+</html>
