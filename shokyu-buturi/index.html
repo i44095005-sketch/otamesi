@@ -147,6 +147,14 @@
       font-weight: 500;
       transition: all 0.2s;
     }
+    /* 右サイドバー（講義一覧）の文字を1行に揃えて「…」で省略する */
+    #lessonSidebar .sidebar-list a {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 0.88rem;
+    }
     .sidebar-list a:hover { background: #f1f5f9; color: #007bff; }
     .sidebar-list a.active {
       background: #ebf8ff;
